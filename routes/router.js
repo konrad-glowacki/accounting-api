@@ -1,9 +1,9 @@
 var homepage = require('./homepage');
-var users = require('./users');
+var customers = require('./customers');
 
 var router = function(app) {
   app.use('/', homepage);
-  app.use('/users', users);
+  app.use('/customers', customers);
 };
 
 module.exports = router;
