@@ -2,3 +2,4 @@
 /public/apidoc/
 
 /npm-debug.log
+/.env

@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Accountant = require('../../models/accountant');
 
 /**
  * @api {post} /accountants Create an accountant
@@ -16,14 +17,27 @@ var router = express.Router();
  *   "password": "some-password"
  * }
  *
- * @apiSuccess (Success 201) {String} token Token for accountant
+ * @apiSuccess (Success 200) {String} token Token for accountant
  *
  * @apiSuccessExample Response example on success:
- * { "token": "abcdefghijkl" }
+ * {
+ *   "token": "abcdefghijkl"
+ * }
  */
 
 router.post('/', function(req, res, next) {
-  res.send('create a accountant');
+  console.log({ body: req.body, params: req.params });
+  var accountant = new Accountant({ email: req.params.email, password: req.params.password });
+
+  accountant.save(function(err) {
+    if (err) {
+      res.status(422);
+      res.json({ errors: err.errors });
+    } else {
+      res.status(200);
+      res.json({ "token": "some-token" });
+    }
+  });
 });
 
 module.exports = router;
