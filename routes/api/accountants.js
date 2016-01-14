@@ -26,8 +26,7 @@ var Accountant = require('../../models/accountant');
  */
 
 router.post('/', function(req, res, next) {
-  console.log({ body: req.body, params: req.params });
-  var accountant = new Accountant({ email: req.params.email, password: req.params.password });
+  var accountant = new Accountant({ email: req.body.email, password: req.body.password });
 
   accountant.save(function(err) {
     if (err) {
