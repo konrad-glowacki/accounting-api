@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "mocha --colors --reporter spec --recursive test"
+    "test": "mocha --colors --reporter spec --recursive test/api"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -24,6 +24,7 @@
     "grunt": "^0.4.5",
     "grunt-apidoc": "^0.10.1",
     "mocha": "^2.3.4",
+    "sinon": "^1.17.2",
     "superagent": "^1.6.1"
   }
 }

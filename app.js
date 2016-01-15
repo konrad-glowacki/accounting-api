@@ -35,6 +35,15 @@ app.use(function(req, res, next) {
 
 // error handlers
 
+// Database error handler
+app.use(function(err, req, res, next) {
+  if (err.constructor.name == 'MongooseError') {
+    res.status(422).send({ code: 'ValidationError', errors: err.errors });
+  } else {
+    next(err);
+  }
+});
+
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {

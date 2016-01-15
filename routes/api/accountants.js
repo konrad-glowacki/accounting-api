@@ -17,7 +17,7 @@ var Accountant = require('../../models/accountant');
  *   "password": "some-password"
  * }
  *
- * @apiSuccess (Success 200) {String} token Token for accountant
+ * @apiSuccess (Success 201) {String} token Token for accountant
  *
  * @apiSuccessExample Response example on success:
  * {
@@ -26,16 +26,11 @@ var Accountant = require('../../models/accountant');
  */
 
 router.post('/', function(req, res, next) {
-  var accountant = new Accountant({ email: req.body.email, password: req.body.password });
+  var accountant = new Accountant(req.body);
 
   accountant.save(function(err) {
-    if (err) {
-      res.status(422);
-      res.json({ errors: err.errors });
-    } else {
-      res.status(200);
-      res.json({ "token": "some-token" });
-    }
+    if (err) { return next(err); }
+    res.status(201).json({ "token": "some-token" });
   });
 });
 
