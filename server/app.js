@@ -1,6 +1,7 @@
+var config = require('../config');
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
+// var favicon = require('serve-favicon');
 var logger = require('morgan');
 // var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -10,7 +11,7 @@ var jsonwebtoken = require('jsonwebtoken');
 var app = express();
 
 // Database
-mongoose.connect(process.env.MONGODB_URL);
+mongoose.connect(config[process.env.NODE_ENV].mongodb);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

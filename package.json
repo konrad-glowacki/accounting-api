@@ -1,9 +1,9 @@
 {
   "name": "accounting-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "nodemon ./bin/server",
     "test": "mocha --colors --reporter spec --recursive test/api"
   },
   "dependencies": {
@@ -24,7 +24,6 @@
     "grunt": "^0.4.5",
     "grunt-apidoc": "^0.10.1",
     "mocha": "^2.3.4",
-    "sinon": "^1.17.2",
     "superagent": "^1.6.1"
   }
 }

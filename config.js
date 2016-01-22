@@ -4,6 +4,6 @@ module.exports = {
   },
 
   test: {
-    mongodb: "mongodb://localhost/accounting"
+    mongodb: "mongodb://localhost/test"
   }
 };
