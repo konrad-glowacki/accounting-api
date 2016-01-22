@@ -1,12 +1,19 @@
 var mongoose = require('mongoose');
+var fixtures = require('pow-mongodb-fixtures').connect('test');
 
 before(function(done) {
-  mongoose.connection.on('open', done);
-});
+  fixtures.clear(function(err) {
+    if (err) {
+      console.error("Cannot clear database");
+      process.exit(1);
+    }
 
-after(function(done) {
-  mongoose.connection.db.dropDatabase(function() {
-    mongoose.connection.close(function() {
+    fixtures.load(__dirname + '/fixtures', function(err) {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+
       done();
     });
   });

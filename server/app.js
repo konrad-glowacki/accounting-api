@@ -17,8 +17,11 @@ mongoose.connect(config[process.env.NODE_ENV].mongodb);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+if (app.get('env') !== 'test') {
+  app.use(logger('dev'));
+}
+
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(cookieParser());
@@ -34,12 +37,14 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-// error handlers
+// Error handlers
 
 // Database error handler
 app.use(function(err, req, res, next) {
-  if (err.constructor.name == 'MongooseError') {
+  if (err.name == 'ValidationError') {
     res.status(422).send({ code: 'ValidationError', errors: err.errors });
+  } else if (err.name == 'CastError') {
+    res.status(404).send('Not Found');
   } else {
     next(err);
   }

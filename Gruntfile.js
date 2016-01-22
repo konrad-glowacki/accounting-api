@@ -4,8 +4,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     apidoc: {
       accounting: {
-        src: "routes/",
-        dest: "public/apidoc"
+        src: "./server/routes/",
+        dest: "./server/public/apidoc"
       }
     }
   });

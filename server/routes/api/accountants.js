@@ -13,15 +13,19 @@ var Accountant = require('../../models/accountant');
  *
  * @apiParamExample {json} Request example:
  * {
+ *   "name": "Ruda Kulka",
  *   "email": "accountant@example.com",
  *   "password": "some-password"
  * }
  *
- * @apiSuccess (Success 201) {String} token Token for accountant
+ * @apiSuccess {String} _id Accountant Id
+ * @apiSuccess {String} name Accountant Name
+ * @apiSuccess {String} email Accountant Email
  *
  * @apiSuccessExample Response example on success:
  * {
- *   "token": "abcdefghijkl"
+ *   "name": "Ruda Kulka",
+ *   "email": "accountant@example.com"
  * }
  */
 
@@ -30,7 +34,32 @@ router.post('/', function(req, res, next) {
 
   accountant.save(function(err) {
     if (err) { return next(err); }
-    res.status(201).json({ "token": "some-token" });
+    res.status(200).json(accountant);
+  });
+});
+
+/**
+ * @api {get} /accountants/:id Get accountant
+ * @apiName GetAccountant
+ * @apiGroup Accountant
+ * @apiVersion 0.1.0
+ *
+ * @apiSuccess {String} _id Accountant Id
+ * @apiSuccess {String} name Accountant Name
+ * @apiSuccess {String} email Accountant Email
+ *
+ * @apiSuccessExample Response example on success:
+ * {
+ *   "_id": "some-token-id",
+ *   "name": "Ruda Kulka",
+ *   "email": "accountant@example.com"
+ * }
+ */
+
+router.get('/:id', function(req, res, next) {
+  Accountant.findById(req.params.id, function(err, accountant) {
+    if (err) { return next(err); }
+    res.status(200).json(accountant);
   });
 });
 
