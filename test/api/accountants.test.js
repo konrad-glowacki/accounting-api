@@ -13,10 +13,10 @@ describe('Requests for accountant', function() {
         .send({ name: 'Some Name', email: 'test@example.com', password: 'test123' })
         .end(function(error, res) {
           expect(res.status).to.equal(200);
-          expect(res.body._id).not.to.be.empty();
-          expect(res.body.createdAt).not.to.be.empty();
+          expect(res.body._id).not.to.empty();
           expect(res.body.name).to.equal('Some Name');
           expect(res.body.email).to.equal('test@example.com');
+          expect(res.body.password).to.be(undefined);
           done();
         });
     });
@@ -27,8 +27,8 @@ describe('Requests for accountant', function() {
         .send({ email: 'test', password: 'test123' })
         .end(function(error, res) {
           expect(res.status).to.equal(422);
-          expect(res.body.errors.name).not.to.be.empty();
-          expect(res.body.errors.email).not.to.be.empty();
+          expect(res.body.errors.name).not.to.empty();
+          expect(res.body.errors.email).not.to.empty();
           done();
         });
     });
@@ -42,6 +42,8 @@ describe('Requests for accountant', function() {
           expect(res.status).to.equal(200);
           expect(res.body._id).to.equal('4ed2b809d7446b9a0e000014');
           expect(res.body.email).to.equal('hello@tax-minder.com');
+          expect(res.body.createdAt).not.to.empty();
+          expect(res.body.password).to.be(undefined);
           done();
         });
     });

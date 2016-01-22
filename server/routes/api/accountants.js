@@ -34,7 +34,12 @@ router.post('/', function(req, res, next) {
 
   accountant.save(function(err) {
     if (err) { return next(err); }
-    res.status(200).json(accountant);
+
+    res.status(200).json({
+      _id: accountant._id,
+      name: accountant.name,
+      email: accountant.email
+    });
   });
 });
 
@@ -59,7 +64,12 @@ router.post('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
   Accountant.findById(req.params.id, function(err, accountant) {
     if (err) { return next(err); }
-    res.status(200).json(accountant);
+    res.status(200).json({
+      _id: accountant._id,
+      name: accountant.name,
+      email: accountant.email,
+      createdAt: accountant.createdAt
+    });
   });
 });
 
