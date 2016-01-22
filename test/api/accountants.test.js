@@ -1,14 +1,14 @@
-var helper = require('../helper');
-var app = require('../../bin/app');
-var utils = require('../utils');
-var request = require('superagent')(app);
+require('../test_helper');
+
+var app = require('../../server/app');
+var request = require('supertest');
 var expect = require('expect.js');
 
 describe('Requests for accountant', function() {
 
   describe('POST /api/accountants', function() {
     it('Create accountant with success', function(done) {
-      request
+      request(app)
         .post('/api/accountants')
         .send({ email: 'test@example.com', password: 'test123' })
         .end(function(error, res) {
