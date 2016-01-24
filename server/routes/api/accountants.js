@@ -67,7 +67,7 @@ router.post('/login', function(req, res, next) {
 
         accountant.token = AccessToken.create({ token: token });
         accountant.save(function(err, saved) {
-          res.status(200).json({ token: accountant.token });
+          res.status(200).json({ token: token });
         });
       });
     } else {
