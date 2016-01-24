@@ -6,10 +6,10 @@ var expect = require('expect.js');
 
 describe('Requests for accountant', function() {
 
-  describe('POST /api/accountants/register', function() {
+  describe('POST /api/accountants/signup', function() {
     it('Create accountant with success', function(done) {
       request(app)
-        .post('/api/accountants/register')
+        .post('/api/accountants/signup')
         .send({ email: 'test@example.com', password: 'test123' })
         .end(function(error, res) {
           expect(res.status).to.equal(201);
@@ -19,7 +19,7 @@ describe('Requests for accountant', function() {
 
     it('Create accountant with errors', function(done) {
       request(app)
-        .post('/api/accountants/register')
+        .post('/api/accountants/signup')
         .send({ email: 'test', password: 'test123' })
         .end(function(error, res) {
           expect(res.status).to.equal(422);
@@ -29,10 +29,10 @@ describe('Requests for accountant', function() {
     });
   });
 
-  describe('POST /api/accountants/login', function() {
+  describe('POST /api/accountants/authenticate', function() {
     it('Login fake accountant with error', function(done) {
       request(app)
-        .post('/api/accountants/login')
+        .post('/api/accountants/authenticate')
         .send({ email: 'test2@example.com', password: 'test123' })
         .end(function(error, res) {
           expect(res.status).to.equal(200);
@@ -43,7 +43,7 @@ describe('Requests for accountant', function() {
 
     it('Login accountant with success', function(done) {
       request(app)
-        .post('/api/accountants/login')
+        .post('/api/accountants/authenticate')
         .send({ email: 'test@example.com', password: 'test123' })
         .end(function(error, res) {
           expect(res.status).to.equal(200);
@@ -53,25 +53,16 @@ describe('Requests for accountant', function() {
     });
   });
 
-  describe('GET /api/accountants/:id', function() {
+  describe('GET /api/accountants/profile', function() {
     it('Return accountant data', function(done) {
       request(app)
-        .get('/api/accountants/4ed2b809d7446b9a0e000014')
+        .get('/api/accountants/profile')
         .end(function(error, res) {
           expect(res.status).to.equal(200);
           expect(res.body._id).to.equal('4ed2b809d7446b9a0e000014');
           expect(res.body.email).to.equal('hello@tax-minder.com');
           expect(res.body.createdAt).not.to.empty();
           expect(res.body.password).to.be(undefined);
-          done();
-        });
-    });
-
-    it('Return not found accountant', function(done) {
-      request(app)
-        .get('/api/accountants/1')
-        .end(function(error, res) {
-          expect(res.status).to.equal(404);
           done();
         });
     });

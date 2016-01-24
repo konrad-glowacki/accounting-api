@@ -23,10 +23,6 @@ var Accountant = new Schema({
     }
   },
 
-  token: {
-    type: Object
-  },
-
   createdAt: {
     type: Date,
     required: true,

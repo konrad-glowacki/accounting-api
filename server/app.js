@@ -6,12 +6,14 @@ var logger = require('morgan');
 // var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var jsonwebtoken = require('jsonwebtoken');
 
 var app = express();
 
 // Database
 mongoose.connect(config[process.env.NODE_ENV].mongodb);
+
+// Set global secret
+app.set('secret', config[process.env.NODE_ENV].secret);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
