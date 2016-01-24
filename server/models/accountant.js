@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
+var passportLocalMongoose = require('passport-local-mongoose');
 var Schema = mongoose.Schema;
 
 var emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-var accountantSchema = new Schema({
+var Accountant = new Schema({
   name: {
     type: String,
-    required: true,
     trim: true
   },
 
@@ -17,23 +17,24 @@ var accountantSchema = new Schema({
     match: emailRegex,
     trim: true,
     lowercase: true,
-    unique: true
+    unique: true,
+    index: {
+      unique: true
+    }
   },
 
-  password: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 20
+  token: {
+    type: Object
   },
 
   createdAt: {
     type: Date,
     required: true,
-    default: Date.now()
+    default: Date.now
   }
 });
 
-accountantSchema.plugin(uniqueValidator);
+Accountant.plugin(uniqueValidator);
+Accountant.plugin(passportLocalMongoose, { usernameField: 'email' });
 
-module.exports = mongoose.model('Accountant', accountantSchema);
+module.exports = mongoose.model('Accountant', Accountant);

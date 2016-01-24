@@ -6,29 +6,48 @@ var expect = require('expect.js');
 
 describe('Requests for accountant', function() {
 
-  describe('POST /api/accountants', function() {
+  describe('POST /api/accountants/register', function() {
     it('Create accountant with success', function(done) {
       request(app)
-        .post('/api/accountants')
-        .send({ name: 'Some Name', email: 'test@example.com', password: 'test123' })
+        .post('/api/accountants/register')
+        .send({ email: 'test@example.com', password: 'test123' })
         .end(function(error, res) {
-          expect(res.status).to.equal(200);
-          expect(res.body._id).not.to.empty();
-          expect(res.body.name).to.equal('Some Name');
-          expect(res.body.email).to.equal('test@example.com');
-          expect(res.body.password).to.be(undefined);
+          expect(res.status).to.equal(201);
           done();
         });
     });
 
     it('Create accountant with errors', function(done) {
       request(app)
-        .post('/api/accountants')
+        .post('/api/accountants/register')
         .send({ email: 'test', password: 'test123' })
         .end(function(error, res) {
           expect(res.status).to.equal(422);
-          expect(res.body.errors.name).not.to.empty();
           expect(res.body.errors.email).not.to.empty();
+          done();
+        });
+    });
+  });
+
+  describe('POST /api/accountants/login', function() {
+    it('Login fake accountant with error', function(done) {
+      request(app)
+        .post('/api/accountants/login')
+        .send({ email: 'test2@example.com', password: 'test123' })
+        .end(function(error, res) {
+          expect(res.status).to.equal(200);
+          expect(res.body.message).not.to.empty();
+          done();
+        });
+    });
+
+    it('Login accountant with success', function(done) {
+      request(app)
+        .post('/api/accountants/login')
+        .send({ email: 'test@example.com', password: 'test123' })
+        .end(function(error, res) {
+          expect(res.status).to.equal(200);
+          expect(res.body.token).not.to.empty();
           done();
         });
     });
