@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Accountant = require('../../../models/accountant');
+var Accountant = require('../../models/accountant');
 
 /**
  * @api {get} /accountants/profile Get accountant data

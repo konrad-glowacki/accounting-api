@@ -1,10 +1,10 @@
-var config = require('../../../../config');
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
 var Accountant = require('../../../models/accountant');
 
 module.exports = function(app) {
+
   /**
    * @api {post} /accountants/signup Create an accountant
    * @apiName CreateAccountant
