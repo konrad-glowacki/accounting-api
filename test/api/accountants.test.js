@@ -71,6 +71,17 @@ describe('Requests for accountant', function() {
           done();
         });
     });
+
+    it('Authentication error when token is fake', function(done) {
+      request(app)
+        .get('/api/accountants/profile')
+        .set('x-access-token', 'fake-token')
+        .end(function(error, res) {
+          expect(res.status).to.equal(403);
+          expect(res.text).to.equal('Failed to authenticate token');
+          done();
+        });
+    });
   });
 
 });
