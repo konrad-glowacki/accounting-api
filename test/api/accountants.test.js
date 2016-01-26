@@ -3,6 +3,8 @@ require('../test_helper');
 var app = require('../../server/app');
 var request = require('supertest');
 var expect = require('expect.js');
+var jwt = require('jsonwebtoken');
+var fixtures = require('../fixtures/accountants');
 
 describe('Requests for accountant', function() {
 
@@ -55,12 +57,15 @@ describe('Requests for accountant', function() {
 
   describe('GET /api/accountants/profile', function() {
     it('Return accountant data', function(done) {
+      var token = jwt.sign(fixtures.accountants.taxminder._id.toString(), app.get('secret'));
+
       request(app)
         .get('/api/accountants/profile')
+        .set('x-access-token', token)
         .end(function(error, res) {
           expect(res.status).to.equal(200);
-          expect(res.body._id).to.equal('4ed2b809d7446b9a0e000014');
-          expect(res.body.email).to.equal('hello@tax-minder.com');
+          expect(res.body.name).to.equal(fixtures.accountants.taxminder.name);
+          expect(res.body.email).to.equal(fixtures.accountants.taxminder.email);
           expect(res.body.createdAt).not.to.empty();
           expect(res.body.password).to.be(undefined);
           done();

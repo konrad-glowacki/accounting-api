@@ -21,8 +21,9 @@ var Accountant = require('../../../models/accountant');
  */
 
 router.get('/profile', function(req, res, next) {
-  Accountant.findById(req.params.id, function(err, accountant) {
+  Accountant.findById(req.userId, function(err, accountant) {
     if (err) { return next(err); }
+
     res.status(200).json({
       name: accountant.name,
       email: accountant.email,

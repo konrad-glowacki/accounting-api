@@ -1,6 +1,6 @@
+var bcrypt = require('bcrypt');
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
-var passportLocalMongoose = require('passport-local-mongoose');
 var Schema = mongoose.Schema;
 
 var emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -23,6 +23,11 @@ var Accountant = new Schema({
     }
   },
 
+  encrypted_password: {
+    type: String,
+    required: true
+  },
+
   createdAt: {
     type: Date,
     required: true,
@@ -31,6 +36,13 @@ var Accountant = new Schema({
 });
 
 Accountant.plugin(uniqueValidator);
-Accountant.plugin(passportLocalMongoose, { usernameField: 'email' });
+
+Accountant.statics.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+};
+
+Accountant.methods.verifyPassword = function(password) {
+  return bcrypt.compareSync(password, this.encrypted_password);
+};
 
 module.exports = mongoose.model('Accountant', Accountant);
