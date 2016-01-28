@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var Accountant = require('../../models/accountant');
 
 /**
  * @api {get} /accountants/profile Get accountant data
@@ -21,14 +20,10 @@ var Accountant = require('../../models/accountant');
  */
 
 router.get('/profile', function(req, res, next) {
-  Accountant.findById(req.userId, function(err, accountant) {
-    if (err) { return next(err); }
-
-    res.status(200).json({
-      name: accountant.name,
-      email: accountant.email,
-      createdAt: accountant.createdAt
-    });
+  res.status(200).json({
+    name: req.accountant.name,
+    email: req.accountant.email,
+    createdAt: req.accountant.createdAt
   });
 });
 

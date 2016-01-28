@@ -1,9 +1,8 @@
 var bcrypt = require('bcrypt');
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
+var emailRegex = require('../lib/email_regex');
 var Schema = mongoose.Schema;
-
-var emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 var Accountant = new Schema({
   name: {

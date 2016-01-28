@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var Accountant = require('../../models/accountant');
 
 module.exports = function(app) {
   // route middleware to verify a token
@@ -12,8 +13,11 @@ module.exports = function(app) {
         if (err) {
           return res.status(403).send('Failed to authenticate token');
         } else {
-          req.userId = decoded;
-          next();
+          Accountant.findById(decoded, function(err, accountant) {
+            if (err) { return next(err); }
+            req.accountant = accountant;
+            next();
+          });
         }
       });
     } else {
