@@ -58,19 +58,17 @@ describe('Requests for customers', function() {
     });
   });
 
-  describe('POST /api/customers/:id', function() {
+  var customer = customers.kowalski;
+
+  describe('GET /api/customers/:id', function() {
     it('Get customer data with success', function(done) {
       var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret'));
-      var customer = customers.kowalski;
 
       request(app)
-        .post('/api/customers/' + customer.id)
+        .get('/api/customers/' + customer._id)
         .set('x-access-token', token)
         .end(function(error, res) {
           expect(res.status).to.equal(200);
-          expect(res.body.errors.email).not.to.empty();
-          expect(res.body.errors.name).not.to.empty();
-          expect(res.body.errors.tax_id).not.to.empty();
           done();
         });
     });

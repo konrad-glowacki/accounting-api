@@ -68,14 +68,18 @@ router.post('/', auth, function(req, res, next) {
  */
 
 router.get('/:id', auth, function(req, res, next) {
-  res.status(200).json({
-    id: req,
-    name: req,
-    company_name: req,
-    email: req.accountant.email,
-    phone: req,
-    tax_id: req,
-    created_at: req.accountant.created_at
+  Customer.findById(req.params.id, function(err, customer) {
+    if (err) { return next(err); }
+
+    res.status(200).json({
+      id: customer.id,
+      name: customer.name,
+      company_name: customer.company_name,
+      email: customer.email,
+      phone: customer.phone,
+      tax_id: customer.tax_id,
+      created_at: customer.created_at
+    });
   });
 });
 
