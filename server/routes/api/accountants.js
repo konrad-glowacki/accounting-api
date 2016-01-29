@@ -9,13 +9,13 @@ var router = express.Router();
  *
  * @apiSuccess {String} name Accountant Name
  * @apiSuccess {String} email Accountant Email
- * @apiSuccess {Date} createdAt Accountant Created Date
+ * @apiSuccess {Date} created_at Accountant Created Date
  *
  * @apiSuccessExample Response example on success:
  * {
  *   "name": "Ruda Kulka",
  *   "email": "accountant@example.com",
- *   "createdAt": "some date",
+ *   "created_at": "some date",
  * }
  */
 
@@ -23,7 +23,7 @@ router.get('/profile', function(req, res, next) {
   res.status(200).json({
     name: req.accountant.name,
     email: req.accountant.email,
-    createdAt: req.accountant.createdAt
+    created_at: req.accountant.created_at
   });
 });
 

@@ -16,7 +16,7 @@ var Customer = new Schema({
     trim: true
   },
 
-  companyName: {
+  company_name: {
     type: String,
     trim: true,
     unique: true,
@@ -28,7 +28,7 @@ var Customer = new Schema({
     trim: true
   },
 
-  taxId: {
+  tax_id: {
     type: String,
     trim: true,
     unique: true,
@@ -51,7 +51,7 @@ var Customer = new Schema({
     type: String
   },
 
-  createdAt: {
+  created_at: {
     type: Date,
     required: true,
     default: Date.now
@@ -59,7 +59,7 @@ var Customer = new Schema({
 });
 
 Customer.pre('save', function(next) {
-  this.taxId = this.taxId.replace(/[ -]/g,'');
+  this.tax_id = this.tax_id.replace(/[ -]/g,'');
   next();
 });
 

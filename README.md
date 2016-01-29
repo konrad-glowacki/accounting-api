@@ -27,6 +27,9 @@ GET /api/accountants/profile
 Add customer
 POST /api/customers
 
+Get customer data
+GET /api/customers/:id
+
 Edit customer
 PUT /api/customers/:id
 

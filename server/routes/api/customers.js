@@ -9,28 +9,28 @@ var Customer = require('../../models/customer');
  * @apiVersion 0.1.0
  *
  * @apiSuccess {String} name Customer full name
- * @apiSuccess {String} companyName Customer company name
+ * @apiSuccess {String} company_name Customer company name
  * @apiSuccess {String} email Customer Email
  * @apiSuccess {String} phone Customer Phone
- * @apiSuccess {String} taxId Customer Tax Id
+ * @apiSuccess {String} tax_id Customer Tax Id
  *
  * @apiSuccessExample Example data on success:
  * {
  *   id: "asdfasdfasdffd",
  *   name: "Jan Kowalski",
- *   companyName: "PolKrak",
+ *   company_name: "PolKrak",
  *   email: "kowalski@gmail.com",
  *   phone: "+48 333 222 111",
- *   taxId: "PL123432134",
- *   createdAt: "PL123432134"
+ *   tax_id: "PL123432134",
+ *   created_at: "PL123432134"
  * }
  */
 
 router.post('/', function(req, res, next) {
   var customer = new Customer({
     accountant: req.accountant.id,
-    name: req.body.name, companyName: req.body.companyName,
-    email: req.body.email, phone: req.body.phone, taxId: req.body.taxId
+    name: req.body.name, company_name: req.body.company_name,
+    email: req.body.email, phone: req.body.phone, tax_id: req.body.tax_id
   });
 
   customer.save(function(err) {
@@ -39,11 +39,11 @@ router.post('/', function(req, res, next) {
     res.status(200).json({
       id: customer.id,
       name: customer.name,
-      companyName: customer.companyName,
+      company_name: customer.company_name,
       email: customer.email,
       phone: customer.phone,
-      taxId: customer.taxId,
-      createdAt: customer.createdAt
+      tax_id: customer.tax_id,
+      created_at: customer.created_at
     });
   });
 });

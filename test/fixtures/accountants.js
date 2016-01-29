@@ -6,7 +6,7 @@ var accountants = {
     name: 'Tax Minder',
     email: 'hello@tax-minder.com',
     password: 'test',
-    createdAt: Date.now()
+    created_at: Date.now()
   }
 };
 

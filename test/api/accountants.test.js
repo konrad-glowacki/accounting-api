@@ -66,7 +66,7 @@ describe('Requests for accountant', function() {
           expect(res.status).to.equal(200);
           expect(res.body.name).to.equal(fixtures.accountants.taxminder.name);
           expect(res.body.email).to.equal(fixtures.accountants.taxminder.email);
-          expect(res.body.createdAt).not.to.empty();
+          expect(res.body.created_at).not.to.empty();
           expect(res.body.password).to.be(undefined);
           done();
         });

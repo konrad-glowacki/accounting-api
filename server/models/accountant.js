@@ -27,7 +27,7 @@ var Accountant = new Schema({
     required: true
   },
 
-  createdAt: {
+  created_at: {
     type: Date,
     required: true,
     default: Date.now
