@@ -4,7 +4,7 @@ var app = require('../../server/app');
 var request = require('supertest');
 var expect = require('expect.js');
 var jwt = require('jsonwebtoken');
-var fixtures = require('../fixtures/accountants');
+var accountants = require('../fixtures/accountants').accountants;
 
 describe('Requests for accountant', function() {
 
@@ -57,15 +57,15 @@ describe('Requests for accountant', function() {
 
   describe('GET /api/accountants/profile', function() {
     it('Return accountant data', function(done) {
-      var token = jwt.sign(fixtures.accountants.taxminder._id.toString(), app.get('secret'));
+      var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret'));
 
       request(app)
         .get('/api/accountants/profile')
         .set('x-access-token', token)
         .end(function(error, res) {
           expect(res.status).to.equal(200);
-          expect(res.body.name).to.equal(fixtures.accountants.taxminder.name);
-          expect(res.body.email).to.equal(fixtures.accountants.taxminder.email);
+          expect(res.body.name).to.equal(accountants.taxminder.name);
+          expect(res.body.email).to.equal(accountants.taxminder.email);
           expect(res.body.created_at).not.to.empty();
           expect(res.body.password).to.be(undefined);
           done();

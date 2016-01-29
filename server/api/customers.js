@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Customer = require('../../models/customer');
+var auth = require('../middlewares/auth');
+var Customer = require('../models/customer');
 
 /**
  * @api {post} /customers Create a customer
@@ -26,7 +27,7 @@ var Customer = require('../../models/customer');
  * }
  */
 
-router.post('/', function(req, res, next) {
+router.post('/', auth, function(req, res, next) {
   var customer = new Customer({
     accountant: req.accountant.id,
     name: req.body.name, company_name: req.body.company_name,
@@ -45,6 +46,36 @@ router.post('/', function(req, res, next) {
       tax_id: customer.tax_id,
       created_at: customer.created_at
     });
+  });
+});
+
+/**
+ * @api {get} /customers/:id Get customer data
+ * @apiName GetCustomer
+ * @apiGroup Customer
+ * @apiVersion 0.1.0
+ *
+ * @apiSuccess {String} name Accountant Name
+ * @apiSuccess {String} email Accountant Email
+ * @apiSuccess {Date} created_at Accountant Created Date
+ *
+ * @apiSuccessExample Response example on success:
+ * {
+ *   "name": "Ruda Kulka",
+ *   "email": "accountant@example.com",
+ *   "created_at": "some date",
+ * }
+ */
+
+router.get('/:id', auth, function(req, res, next) {
+  res.status(200).json({
+    id: req,
+    name: req,
+    company_name: req,
+    email: req.accountant.email,
+    phone: req,
+    tax_id: req,
+    created_at: req.accountant.created_at
   });
 });
 
