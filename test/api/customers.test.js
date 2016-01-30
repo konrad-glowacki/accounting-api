@@ -11,7 +11,8 @@ describe('Requests for customers', function() {
 
   describe('POST /api/customers', function() {
     it('Create customer with success', function(done) {
-      var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret'));
+      var accountant_id = accountants.taxminder._id.toString();
+      var token = jwt.sign(accountant_id, app.get('secret'));
 
       request(app)
         .post('/api/customers')
@@ -23,6 +24,7 @@ describe('Requests for customers', function() {
         }).end(function(error, res) {
           expect(res.status).to.equal(200);
           expect(res.body._id).not.to.empty();
+          expect(res.body.accountant).to.equal(accountant_id);
           expect(res.body.name).to.equal('Jan Kowalski');
           expect(res.body.company_name).to.equal('Jankowo');
           expect(res.body.email).to.equal('test@example.com');
@@ -72,7 +74,8 @@ describe('Requests for customers', function() {
 
   describe('GET /api/customers/:id', function() {
     it('Get customer data with success', function(done) {
-      var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret'));
+      var accountant_id = accountants.taxminder._id.toString();
+      var token = jwt.sign(accountant_id, app.get('secret'));
 
       request(app)
         .get('/api/customers/' + customer._id)
@@ -80,6 +83,7 @@ describe('Requests for customers', function() {
         .end(function(error, res) {
           expect(res.status).to.equal(200);
           expect(res.body._id).to.equal('4ed2b809d7446b9a0e000000');
+          expect(res.body.accountant).to.equal(accountant_id);
           expect(res.body.name).to.equal('Jan Kowalski');
           expect(res.body.company_name).to.equal('PolKrak');
           expect(res.body.email).to.equal('kowalski@gmail.com');

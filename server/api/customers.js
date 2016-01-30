@@ -9,6 +9,8 @@ var Customer = require('../models/customer');
  * @apiGroup Customer
  * @apiVersion 0.1.0
  *
+ * @apiHeader {String} x-access-token Accountant unique access token
+ *
  * @apiSuccess {String} name Customer full name
  * @apiSuccess {String} company_name Customer company name
  * @apiSuccess {String} email Customer Email
@@ -28,7 +30,7 @@ var Customer = require('../models/customer');
  *   vat_payer: true,
  *   social_security_payer: true,
  *   has_employees: false,
- *   created_at: "PL123432134"
+ *   created_at: "2016-01-30T22:44:22.353Z"
  * }
  */
 
@@ -53,6 +55,8 @@ router.post('/', auth, function(req, res, next) {
  * @apiGroup Customer
  * @apiVersion 0.1.0
  *
+ * @apiHeader {String} x-access-token Accountant unique access token
+ *
  * @apiSuccessExample Example data on success:
  * {
  *   _id: "asdfasdfasdffd",
@@ -65,7 +69,7 @@ router.post('/', auth, function(req, res, next) {
  *   vat_payer: true,
  *   social_security_payer: true,
  *   has_employees: false,
- *   created_at: "PL123432134"
+ *   created_at: "2016-01-30T22:44:22.353Z"
  * }
  */
 

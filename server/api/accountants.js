@@ -20,7 +20,7 @@ var Accountant = require('../models/accountant');
  *   "password": "some-password"
  * }
  *
- * @apiSuccess (201)
+ * @apiSuccess (201) null
  */
 
 router.post('/signup', function(req, res, next) {
@@ -76,6 +76,8 @@ router.post('/authenticate', function(req, res, next) {
  * @apiName GetAccountant
  * @apiGroup Accountant
  * @apiVersion 0.1.0
+ *
+ * @apiHeader {String} x-access-token Accountant unique access token
  *
  * @apiSuccess {String} name Accountant Name
  * @apiSuccess {String} email Accountant Email
