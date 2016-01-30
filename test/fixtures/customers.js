@@ -9,6 +9,7 @@ exports.customers = {
     company_name: 'PolKrak',
     email: 'kowalski@gmail.com',
     phone: '432324432',
-    tax_id: '9452121682'
+    tax_id: '9452121682',
+    settlement_period: 'quarterly'
   }
 };

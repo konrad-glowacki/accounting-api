@@ -51,6 +51,12 @@ var Customer = new Schema({
     type: String
   },
 
+  settlement_period: {
+    type: String,
+    enum: ['monthly', 'quarterly'],
+    required: true
+  },
+
   created_at: {
     type: Date,
     required: true,
