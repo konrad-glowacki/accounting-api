@@ -57,6 +57,21 @@ var Customer = new Schema({
     required: true
   },
 
+  vat_payer: {
+    type: Boolean,
+    required: true
+  },
+
+  social_security_payer: {
+    type: Boolean,
+    required: true
+  },
+
+  has_employees: {
+    type: Boolean,
+    required: true
+  },
+
   created_at: {
     type: Date,
     required: true,

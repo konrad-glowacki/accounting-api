@@ -18,7 +18,8 @@ describe('Requests for customers', function() {
         .set('x-access-token', token)
         .send({
           name: 'Jan Kowalski', company_name: 'Jankowo', email: 'test@example.com', phone: '100200300',
-          tax_id: '945-212-168 1', settlement_period: 'quarterly'
+          tax_id: '945-212-168 1', settlement_period: 'quarterly', vat_payer: false, social_security_payer: true,
+          has_employees: false
         }).end(function(error, res) {
           expect(res.status).to.equal(200);
           expect(res.body._id).not.to.empty();
@@ -28,6 +29,9 @@ describe('Requests for customers', function() {
           expect(res.body.phone).to.equal('100200300');
           expect(res.body.tax_id).to.equal('9452121681');
           expect(res.body.settlement_period).to.equal('quarterly');
+          expect(res.body.vat_payer).to.equal(false);
+          expect(res.body.social_security_payer).to.equal(true);
+          expect(res.body.has_employees).to.equal(false);
           expect(res.body.created_at).not.to.empty();
           done();
         });
@@ -46,6 +50,9 @@ describe('Requests for customers', function() {
           expect(res.body.errors.name).not.to.empty();
           expect(res.body.errors.tax_id).not.to.empty();
           expect(res.body.errors.settlement_period).not.to.empty();
+          expect(res.body.errors.vat_payer).not.to.empty();
+          expect(res.body.errors.social_security_payer).not.to.empty();
+          expect(res.body.errors.has_employees).not.to.empty();
           done();
         });
     });
@@ -79,6 +86,9 @@ describe('Requests for customers', function() {
           expect(res.body.phone).to.equal('432324432');
           expect(res.body.tax_id).to.equal('9452121682');
           expect(res.body.settlement_period).to.equal('quarterly');
+          expect(res.body.vat_payer).to.equal(true);
+          expect(res.body.social_security_payer).to.equal(true);
+          expect(res.body.has_employees).to.equal(false);
           expect(res.body.created_at).not.to.empty();
           done();
         });

@@ -10,6 +10,9 @@ exports.customers = {
     email: 'kowalski@gmail.com',
     phone: '432324432',
     tax_id: '9452121682',
-    settlement_period: 'quarterly'
+    settlement_period: 'quarterly',
+    vat_payer: true,
+    social_security_payer: true,
+    has_employees: false
   }
 };

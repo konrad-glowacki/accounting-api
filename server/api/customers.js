@@ -25,6 +25,9 @@ var Customer = require('../models/customer');
  *   phone: "+48 333 222 111",
  *   tax_id: "PL123432134",
  *   settlement_period: "quarterly",
+ *   vat_payer: true,
+ *   social_security_payer: true,
+ *   has_employees: false,
  *   created_at: "PL123432134"
  * }
  */
@@ -34,7 +37,8 @@ router.post('/', auth, function(req, res, next) {
     accountant: req.accountant.id,
     name: req.body.name, company_name: req.body.company_name,
     email: req.body.email, phone: req.body.phone, tax_id: req.body.tax_id,
-    settlement_period: req.body.settlement_period
+    settlement_period: req.body.settlement_period, vat_payer: req.body.vat_payer,
+    social_security_payer: req.body.social_security_payer, has_employees: req.body.has_employees
   });
 
   customer.save(function(err) {
@@ -58,6 +62,9 @@ router.post('/', auth, function(req, res, next) {
  *   phone: "+48 333 222 111",
  *   tax_id: "PL123432134",
  *   settlement_period: "quarterly",
+ *   vat_payer: true,
+ *   social_security_payer: true,
+ *   has_employees: false,
  *   created_at: "PL123432134"
  * }
  */
