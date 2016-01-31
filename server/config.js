@@ -10,7 +10,7 @@ var config = {
   },
 
   production: {
-    "mongodb": process.env.MONGODB_URL,
+    "mongodb": process.env.MONGOLAB_URI,
     "secret_key": process.env.SECRET_KEY
   }
 };
