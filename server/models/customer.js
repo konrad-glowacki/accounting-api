@@ -4,7 +4,7 @@ var emailRegex = require('../lib/email_regex');
 var Schema = mongoose.Schema;
 
 var Customer = new Schema({
-  accountant: {
+  accountant_id: {
     type: Schema.Types.ObjectId,
     required: true
   },

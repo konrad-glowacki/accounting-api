@@ -24,7 +24,7 @@ describe('Requests for customers', function() {
         }).end(function(error, res) {
           expect(res.status).to.equal(200);
           expect(res.body._id).not.to.empty();
-          expect(res.body.accountant).to.equal(accountant_id);
+          expect(res.body.accountant_id).to.equal(accountant_id);
           expect(res.body.name).to.equal('Jan Kowalski');
           expect(res.body.company_name).to.equal('Jankowo');
           expect(res.body.email).to.equal('test@example.com');
@@ -83,6 +83,7 @@ describe('Requests for customers', function() {
         .end(function(error, res) {
           expect(res.status).to.equal(200);
           expect(res.body._id).to.equal(customer._id.toString());
+          expect(res.body.accountant_id).to.equal(accountant_id);
           expect(res.body.name).to.equal(customer.name);
           expect(res.body.company_name).to.equal(customer.company_name);
           expect(res.body.email).to.equal(customer.email);

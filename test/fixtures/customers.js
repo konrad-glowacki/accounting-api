@@ -4,7 +4,7 @@ var accountants = require('./accountants.js').accountants;
 exports.customers = {
   kowalski: {
     _id: id('4ed2b809d7446b9a0e000001'),
-    accountant: accountants.taxminder._id,
+    accountant_id: accountants.taxminder._id,
     name: 'Jan Kowalski',
     company_name: 'PolKrak',
     email: 'kowalski@gmail.com',
@@ -18,7 +18,7 @@ exports.customers = {
 
   nowak: {
     _id: id('4ed2b809d7446b9a0e000002'),
-    accountant: accountants.easytax._id,
+    accountant_id: accountants.easytax._id,
     name: 'Adam Nowak',
     company_name: 'AdNow',
     email: 'nowak@gmail.com',
