@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+  grunt.registerTask('default', ['apidoc']);
   grunt.loadNpmTasks('grunt-apidoc');
 
   grunt.initConfig({
