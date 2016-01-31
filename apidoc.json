@@ -1,4 +1,4 @@
 {
   "title": "Custom apiDoc browser title",
-  "url" : "http://accounting-api.herokuapp.com"
+  "url" : "http://accounting-api.herokuapp.com/api"
 }
