@@ -1,5 +1,4 @@
 module.exports = function(grunt) {
-  grunt.registerTask('default', ['apidoc']);
   grunt.loadNpmTasks('grunt-apidoc');
 
   grunt.initConfig({
@@ -8,6 +7,12 @@ module.exports = function(grunt) {
         src: "./server/api/",
         dest: "./server/public/apidoc"
       }
+    }
+  });
+
+  grunt.registerTask('default', 'Default task', function() {
+    if (process.env.NODE_ENV !== 'test') {
+      grunt.task.run('apidoc');
     }
   });
 };
