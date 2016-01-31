@@ -1,4 +1,0 @@
-{
-  "mongodb": "mongodb://localhost/test",
-  "secret": "put-a-$Ecr3t-h3re"
-}

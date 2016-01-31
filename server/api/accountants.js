@@ -63,7 +63,7 @@ router.post('/authenticate', function(req, res, next) {
     if (err) { return next(err); }
 
     if (accountant && accountant.verifyPassword(req.body.password)) {
-      var token = jwt.sign(accountant.id, config.secret);
+      var token = jwt.sign(accountant.id, config.secret_key);
       res.status(200).json({ token: token });
     } else {
       res.status(200).json({ message: 'User not found' });

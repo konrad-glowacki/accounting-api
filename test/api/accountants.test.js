@@ -57,7 +57,7 @@ describe('Requests for accountant', function() {
 
   describe('GET /api/accountants/profile', function() {
     it('Return accountant data', function(done) {
-      var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret'));
+      var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret_key'));
 
       request(app)
         .get('/api/accountants/profile')

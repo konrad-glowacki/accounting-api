@@ -12,7 +12,7 @@ describe('Requests for customers', function() {
   describe('POST /api/customers', function() {
     it('Create customer with success', function(done) {
       var accountant_id = accountants.taxminder._id.toString();
-      var token = jwt.sign(accountant_id, app.get('secret'));
+      var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
         .post('/api/customers')
@@ -40,7 +40,7 @@ describe('Requests for customers', function() {
     });
 
     it('Errors during create customer', function(done) {
-      var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret'));
+      var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret_key'));
 
       request(app)
         .post('/api/customers')
@@ -75,7 +75,7 @@ describe('Requests for customers', function() {
 
     it('Get customer data with success', function(done) {
       var accountant_id = accountants.taxminder._id.toString();
-      var token = jwt.sign(accountant_id, app.get('secret'));
+      var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
         .get('/api/customers/' + customer._id)
@@ -100,7 +100,7 @@ describe('Requests for customers', function() {
 
     it('Getting a customer for another accountant', function(done) {
       var accountant_id = accountants.easytax._id.toString();
-      var token = jwt.sign(accountant_id, app.get('secret'));
+      var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
         .get('/api/customers/' + customer._id)
