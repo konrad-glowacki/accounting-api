@@ -11,11 +11,8 @@ var auth = function(req, res, next) {
       if (err) {
         return res.status(403).send('Failed to authenticate token');
       } else {
-        Accountant.findById(decoded, function(err, accountant) {
-          if (err) { return next(err); }
-          req.accountant = accountant;
-          next();
-        });
+        req.accountant_id = decoded;
+        next();
       }
     });
   } else {

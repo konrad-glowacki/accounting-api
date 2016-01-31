@@ -5,8 +5,7 @@ var Schema = mongoose.Schema;
 
 var Customer = new Schema({
   accountant: {
-    type: Schema.ObjectId,
-    ref: 'Accountant',
+    type: Schema.Types.ObjectId,
     required: true
   },
 

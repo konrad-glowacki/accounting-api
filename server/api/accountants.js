@@ -92,10 +92,12 @@ router.post('/authenticate', function(req, res, next) {
  */
 
 router.get('/profile', auth, function(req, res, next) {
-  res.status(200).json({
-    name: req.accountant.name,
-    email: req.accountant.email,
-    created_at: req.accountant.created_at
+  Accountant.findById(req.accountant_id, function(err, accountant) {
+    res.status(200).json({
+      name: accountant.name,
+      email: accountant.email,
+      created_at: accountant.created_at
+    });
   });
 });
 

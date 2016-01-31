@@ -70,9 +70,9 @@ describe('Requests for customers', function() {
     });
   });
 
-  var customer = customers.kowalski;
-
   describe('GET /api/customers/:id', function() {
+    var customer = customers.kowalski;
+
     it('Get customer data with success', function(done) {
       var accountant_id = accountants.taxminder._id.toString();
       var token = jwt.sign(accountant_id, app.get('secret'));
@@ -82,17 +82,31 @@ describe('Requests for customers', function() {
         .set('x-access-token', token)
         .end(function(error, res) {
           expect(res.status).to.equal(200);
-          expect(res.body._id).to.equal('4ed2b809d7446b9a0e000000');
-          expect(res.body.name).to.equal('Jan Kowalski');
-          expect(res.body.company_name).to.equal('PolKrak');
-          expect(res.body.email).to.equal('kowalski@gmail.com');
-          expect(res.body.phone).to.equal('432324432');
-          expect(res.body.tax_id).to.equal('9452121682');
-          expect(res.body.settlement_period).to.equal('quarterly');
-          expect(res.body.vat_payer).to.equal(true);
-          expect(res.body.social_security_payer).to.equal(true);
-          expect(res.body.has_employees).to.equal(false);
+          expect(res.body._id).to.equal(customer._id.toString());
+          expect(res.body.name).to.equal(customer.name);
+          expect(res.body.company_name).to.equal(customer.company_name);
+          expect(res.body.email).to.equal(customer.email);
+          expect(res.body.phone).to.equal(customer.phone);
+          expect(res.body.tax_id).to.equal(customer.tax_id);
+          expect(res.body.settlement_period).to.equal(customer.settlement_period);
+          expect(res.body.vat_payer).to.equal(customer.vat_payer);
+          expect(res.body.social_security_payer).to.equal(customer.social_security_payer);
+          expect(res.body.has_employees).to.equal(customer.has_employees);
           expect(res.body.created_at).not.to.empty();
+          done();
+        });
+    });
+
+    it('Getting a customer for another accountant', function(done) {
+      var accountant_id = accountants.easytax._id.toString();
+      var token = jwt.sign(accountant_id, app.get('secret'));
+
+      request(app)
+        .get('/api/customers/' + customer._id)
+        .set('x-access-token', token)
+        .end(function(error, res) {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be(null);
           done();
         });
     });

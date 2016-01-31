@@ -36,7 +36,7 @@ var Customer = require('../models/customer');
 
 router.post('/', auth, function(req, res, next) {
   var customer = new Customer({
-    accountant: req.accountant.id,
+    accountant: req.accountant_id,
     name: req.body.name, company_name: req.body.company_name,
     email: req.body.email, phone: req.body.phone, tax_id: req.body.tax_id,
     settlement_period: req.body.settlement_period, vat_payer: req.body.vat_payer,
@@ -74,7 +74,7 @@ router.post('/', auth, function(req, res, next) {
  */
 
 router.get('/:id', auth, function(req, res, next) {
-  Customer.findById(req.params.id, function(err, customer) {
+  Customer.findOne({ accountant: req.accountant_id, _id: req.params.id }, function(err, customer) {
     if (err) { return next(err); }
     res.status(200).json(customer);
   });
