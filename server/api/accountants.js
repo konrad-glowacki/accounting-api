@@ -20,7 +20,7 @@ var Accountant = require('../models/accountant');
  *   "password": "some-password"
  * }
  *
- * @apiSuccess (201) null
+ * @apiSuccess (201) {String} email Accountant email
  */
 
 router.post('/signup', function(req, res, next) {
@@ -31,7 +31,10 @@ router.post('/signup', function(req, res, next) {
 
   accountant.save(function(err) {
     if (err) { return next(err); }
-    res.status(201).send(null);
+
+    res.status(201).json({
+      email: accountant.email
+    });
   });
 });
 

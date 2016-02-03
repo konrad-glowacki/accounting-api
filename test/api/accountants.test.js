@@ -15,6 +15,7 @@ describe('Requests for accountant', function() {
         .send({ email: 'test@example.com', password: 'test123' })
         .end(function(error, res) {
           expect(res.status).to.equal(201);
+          expect(res.body.email).to.equal('test@example.com');
           done();
         });
     });

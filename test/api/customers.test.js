@@ -1,5 +1,6 @@
 require('../test_helper');
 
+var Customer = require('../../server/models/customer');
 var accountants = require('../fixtures/accountants').accountants;
 var customers = require('../fixtures/customers').customers;
 var app = require('../../server/app');
@@ -108,6 +109,74 @@ describe('Requests for customers', function() {
         .end(function(error, res) {
           expect(res.status).to.equal(200);
           expect(res.body).to.be(null);
+          done();
+        });
+    });
+  });
+
+  describe('PUT /api/customers/:id', function() {
+    var customer = customers.kowalski;
+
+    it('Update customer with success', function(done) {
+      var accountant_id = accountants.taxminder._id.toString();
+      var token = jwt.sign(accountant_id, app.get('secret_key'));
+
+      request(app)
+        .put('/api/customers/' + customer._id)
+        .set('x-access-token', token)
+        .send({ company_name: 'Changed', email: 'changed@test.com', settlement_period: 'monthly' })
+        .end(function(error, res) {
+          expect(res.status).to.equal(204);
+          expect(res.body).to.be.empty();
+
+          Customer.findById(customer._id, function(err, updated_customer) {
+            expect(updated_customer.company_name).to.equal('Changed');
+            expect(updated_customer.email).to.equal('changed@test.com');
+            expect(updated_customer.settlement_period).to.equal('monthly');
+            done();
+          });
+        });
+    });
+
+    it('Unathorized access to update customer', function(done) {
+      request(app)
+        .put('/api/customers/' + customer._id)
+        .set('x-access-token', 'fake-token')
+        .send({ company_name: 'Changed' })
+        .end(function(err, res) {
+          expect(res.status).to.equal(403);
+          done();
+        });
+    });
+  });
+
+  describe('DELETE /api/customers/:id', function() {
+    var customer = customers.kowalski;
+
+    it('Delete customer with success', function(done) {
+      var accountant_id = accountants.taxminder._id.toString();
+      var token = jwt.sign(accountant_id, app.get('secret_key'));
+
+      request(app)
+        .delete('/api/customers/' + customer._id)
+        .set('x-access-token', token)
+        .end(function(error, res) {
+          expect(res.status).to.equal(204);
+          expect(res.body).to.be.empty();
+
+          Customer.findById(customer._id, function(err, deleted_customer) {
+            expect(deleted_customer).to.be(null);
+            done();
+          });
+        });
+    });
+
+    it('Unathorized access to update customer', function(done) {
+      request(app)
+        .delete('/api/customers/' + customer._id)
+        .set('x-access-token', 'fake-token')
+        .end(function(err, res) {
+          expect(res.status).to.equal(403);
           done();
         });
     });

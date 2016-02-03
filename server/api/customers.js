@@ -11,12 +11,15 @@ var Customer = require('../models/customer');
  *
  * @apiHeader {String} x-access-token Accountant unique access token
  *
- * @apiSuccess {String} name Customer full name
- * @apiSuccess {String} company_name Customer company name
- * @apiSuccess {String} email Customer Email
- * @apiSuccess {String} phone Customer Phone
- * @apiSuccess {String} tax_id Customer Tax Id
- * @apiSuccess {String} settlement_period Customer settlement period [monthly, quarterly]
+ * @apiParam {String} name Customer full name
+ * @apiParam {String} company_name Customer company name
+ * @apiParam {String} email Customer Email
+ * @apiParam {String} phone Customer Phone
+ * @apiParam {String} tax_id Customer Tax Id
+ * @apiParam {String="monthly","quarterly"} settlement_period Customer settlement period
+ * @apiParam {Boolean} vat_payer Customer pays VAT
+ * @apiParam {Boolean} social_security_payer Customer pays ZUS
+ * @apiParam {Boolean} has_employees Customer has employees
  *
  * @apiSuccessExample Example data on success:
  * {
@@ -57,6 +60,16 @@ router.post('/', auth, function(req, res, next) {
  *
  * @apiHeader {String} x-access-token Accountant unique access token
  *
+ * @apiSuccess {String} name Customer full name
+ * @apiSuccess {String} company_name Customer company name
+ * @apiSuccess {String} email Customer Email
+ * @apiSuccess {String} phone Customer Phone
+ * @apiSuccess {String} tax_id Customer Tax Id
+ * @apiSuccess {String="monthly","quarterly"} settlement_period Customer settlement period
+ * @apiSuccess {Boolean} vat_payer Customer pays VAT
+ * @apiSuccess {Boolean} social_security_payer Customer pays ZUS
+ * @apiSuccess {Boolean} has_employees Customer has employees
+ *
  * @apiSuccessExample Example data on success:
  * {
  *   _id: "asdfasdfasdffd",
@@ -77,6 +90,56 @@ router.get('/:id', auth, function(req, res, next) {
   Customer.findOne({ accountant_id: req.accountant_id, _id: req.params.id }, function(err, customer) {
     if (err) { return next(err); }
     res.status(200).json(customer);
+  });
+});
+
+/**
+ * @api {put} /customers/:id Update customer
+ * @apiName UpdateCustomers
+ * @apiGroup Customer
+ * @apiVersion 0.1.0
+ *
+ * @apiHeader {String} x-access-token Accountant unique access token
+ *
+ * @apiParam {String} name Customer full name
+ * @apiParam {String} company_name Customer company name
+ * @apiParam {String} email Customer Email
+ * @apiParam {String} phone Customer Phone
+ * @apiParam {String} tax_id Customer Tax Id
+ * @apiParam {String="monthly","quarterly"} settlement_period Customer settlement period
+ * @apiParam {Boolean} vat_payer Customer pays VAT
+ * @apiParam {Boolean} social_security_payer Customer pays ZUS
+ * @apiParam {Boolean} has_employees Customer has employees
+ *
+ * @apiSuccess (204) null
+ */
+
+router.put('/:id', auth, function(req, res, next) {
+  var query = { accountant_id: req.accountant_id, _id: req.params.id };
+
+  Customer.findOneAndUpdate(query, req.body, function(err, customer) {
+    if (err) { return next(err); }
+    res.status(204).json(null);
+  });
+});
+
+/**
+ * @api {delete} /customers/:id Delete customer
+ * @apiName DeleteCustomers
+ * @apiGroup Customer
+ * @apiVersion 0.1.0
+ *
+ * @apiHeader {String} x-access-token Accountant unique access token
+ *
+ * @apiSuccess (204) null
+ */
+
+router.delete('/:id', auth, function(req, res, next) {
+  var query = { accountant_id: req.accountant_id, _id: req.params.id };
+
+  Customer.remove(query, function(err) {
+    if (err) { return next(err); }
+    res.status(204).json(null);
   });
 });
 
