@@ -3,3 +3,6 @@ node_js: "0.12"
 before_install: npm install -g grunt-cli
 services:
   - mongodb
+addons:
+  code_climate:
+    repo_token: 3f0acfc3879a2c642385f47d1818aa952cbab181fcdf9c738075bc6fb79c8c2a
