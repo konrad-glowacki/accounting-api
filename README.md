@@ -12,7 +12,7 @@ RESTful API for accounting small companies implemented in NodeJS.
   - superagent
   - expect.js
 
-### API documentation
+## API documentation
 Available in path /apidoc
 
 Signup accountant
@@ -24,14 +24,16 @@ POST /api/accountants/authenticate
 Get accountant data
 GET /api/accountants/profile
 
+### Accountant area
+
 Add customer
-POST /api/customers
+POST /api/accountant/customers
 
 Get customer data
-GET /api/customers/:id
+GET /api/accountant/customers/:id
 
 Edit customer
-PUT /api/customers/:id
+PUT /api/accountant/customers/:id
 
 Delete customer
-DELETE /api/customers/:id
+DELETE /api/accountant/customers/:id

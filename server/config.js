@@ -1,3 +1,5 @@
+global.__base = __dirname + '/';
+
 var config = {
   development: {
     "mongodb": "mongodb://localhost/accounting",

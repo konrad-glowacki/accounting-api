@@ -1,4 +1,5 @@
 var express = require('express');
+var accountantAuth = require('../middlewares/auth').accountant;
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
@@ -6,6 +7,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/api/accountants', require('./accountants'));
-router.use('/api/customers', require('./customers'));
+router.use('/api/accountant/customers', accountantAuth, require('./customers'));
 
 module.exports = router;

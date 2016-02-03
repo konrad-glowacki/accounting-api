@@ -1,10 +1,12 @@
 require('../test_helper');
 
-var app = require('../../server/app');
+var app = require(__base + 'app');
+
+var accountants = require('../fixtures/accountants').accountants;
+
 var request = require('supertest');
 var expect = require('expect.js');
 var jwt = require('jsonwebtoken');
-var accountants = require('../fixtures/accountants').accountants;
 
 describe('Requests for accountant', function() {
 

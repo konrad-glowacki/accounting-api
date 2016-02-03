@@ -1,22 +1,24 @@
-require('../test_helper');
+require('../../test_helper');
 
-var Customer = require('../../server/models/customer');
-var accountants = require('../fixtures/accountants').accountants;
-var customers = require('../fixtures/customers').customers;
-var app = require('../../server/app');
+var app = require(__base + 'app');
+var Customer = require(__base + 'models/customer');
+
+var accountants = require('../../fixtures/accountants').accountants;
+var customers = require('../../fixtures/customers').customers;
+
 var request = require('supertest');
 var expect = require('expect.js');
 var jwt = require('jsonwebtoken');
 
 describe('Requests for customers', function() {
 
-  describe('POST /api/customers', function() {
+  describe('POST /api/accountant/customers', function() {
     it('Create customer with success', function(done) {
       var accountant_id = accountants.taxminder._id.toString();
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
-        .post('/api/customers')
+        .post('/api/accountant/customers')
         .set('x-access-token', token)
         .send({
           name: 'Jan Kowalski', company_name: 'Jankowo', email: 'test@example.com', phone: '100200300',
@@ -44,7 +46,7 @@ describe('Requests for customers', function() {
       var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret_key'));
 
       request(app)
-        .post('/api/customers')
+        .post('/api/accountant/customers')
         .set('x-access-token', token)
         .send({ company_name: 'Jankowo', email: 'test', phone: '100200300', settlement_period: 'error' })
         .end(function(error, res) {
@@ -62,7 +64,7 @@ describe('Requests for customers', function() {
 
     it('Unathorized access to create customer', function(done) {
       request(app)
-        .post('/api/customers')
+        .post('/api/accountant/customers')
         .send({})
         .end(function(error, res) {
           expect(res.status).to.equal(403);
@@ -71,7 +73,7 @@ describe('Requests for customers', function() {
     });
   });
 
-  describe('GET /api/customers/:id', function() {
+  describe('GET /api/accountant/customers/:id', function() {
     var customer = customers.kowalski;
 
     it('Get customer data with success', function(done) {
@@ -79,7 +81,7 @@ describe('Requests for customers', function() {
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
-        .get('/api/customers/' + customer._id)
+        .get('/api/accountant/customers/' + customer._id)
         .set('x-access-token', token)
         .end(function(error, res) {
           expect(res.status).to.equal(200);
@@ -104,7 +106,7 @@ describe('Requests for customers', function() {
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
-        .get('/api/customers/' + customer._id)
+        .get('/api/accountant/customers/' + customer._id)
         .set('x-access-token', token)
         .end(function(error, res) {
           expect(res.status).to.equal(200);
@@ -114,7 +116,7 @@ describe('Requests for customers', function() {
     });
   });
 
-  describe('PUT /api/customers/:id', function() {
+  describe('PUT /api/accountant/customers/:id', function() {
     var customer = customers.kowalski;
 
     it('Update customer with success', function(done) {
@@ -122,7 +124,7 @@ describe('Requests for customers', function() {
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
-        .put('/api/customers/' + customer._id)
+        .put('/api/accountant/customers/' + customer._id)
         .set('x-access-token', token)
         .send({ company_name: 'Changed', email: 'changed@test.com', settlement_period: 'monthly' })
         .end(function(error, res) {
@@ -140,7 +142,7 @@ describe('Requests for customers', function() {
 
     it('Unathorized access to update customer', function(done) {
       request(app)
-        .put('/api/customers/' + customer._id)
+        .put('/api/accountant/customers/' + customer._id)
         .set('x-access-token', 'fake-token')
         .send({ company_name: 'Changed' })
         .end(function(err, res) {
@@ -150,7 +152,7 @@ describe('Requests for customers', function() {
     });
   });
 
-  describe('DELETE /api/customers/:id', function() {
+  describe('DELETE /api/accountant/customers/:id', function() {
     var customer = customers.kowalski;
 
     it('Delete customer with success', function(done) {
@@ -158,7 +160,7 @@ describe('Requests for customers', function() {
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
-        .delete('/api/customers/' + customer._id)
+        .delete('/api/accountant/customers/' + customer._id)
         .set('x-access-token', token)
         .end(function(error, res) {
           expect(res.status).to.equal(204);
@@ -173,7 +175,7 @@ describe('Requests for customers', function() {
 
     it('Unathorized access to update customer', function(done) {
       request(app)
-        .delete('/api/customers/' + customer._id)
+        .delete('/api/accountant/customers/' + customer._id)
         .set('x-access-token', 'fake-token')
         .end(function(err, res) {
           expect(res.status).to.equal(403);

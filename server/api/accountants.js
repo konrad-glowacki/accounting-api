@@ -2,7 +2,7 @@ var config = require('../config');
 var express = require('express');
 var router = express.Router();
 var jwt = require('jsonwebtoken');
-var auth = require('../middlewares/auth');
+var accountantAuth = require('../middlewares/auth').accountant;
 var Accountant = require('../models/accountant');
 
 /**
@@ -94,7 +94,7 @@ router.post('/authenticate', function(req, res, next) {
  * }
  */
 
-router.get('/profile', auth, function(req, res, next) {
+router.get('/profile', accountantAuth, function(req, res, next) {
   Accountant.findById(req.accountant_id, function(err, accountant) {
     res.status(200).json({
       name: accountant.name,

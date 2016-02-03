@@ -1,10 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var auth = require('../middlewares/auth');
 var Customer = require('../models/customer');
 
 /**
- * @api {post} /customers Create a customer
+ * @api {post} /accountant/customers Create a customer
  * @apiName CreateCustomers
  * @apiGroup Customer
  * @apiVersion 0.1.0
@@ -37,7 +36,7 @@ var Customer = require('../models/customer');
  * }
  */
 
-router.post('/', auth, function(req, res, next) {
+router.post('/', function(req, res, next) {
   var customer = new Customer({
     accountant_id: req.accountant_id,
     name: req.body.name, company_name: req.body.company_name,
@@ -53,7 +52,7 @@ router.post('/', auth, function(req, res, next) {
 });
 
 /**
- * @api {get} /customers/:id Get customer data
+ * @api {get} /accountant/customers/:id Get customer data
  * @apiName GetCustomer
  * @apiGroup Customer
  * @apiVersion 0.1.0
@@ -86,7 +85,7 @@ router.post('/', auth, function(req, res, next) {
  * }
  */
 
-router.get('/:id', auth, function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   Customer.findOne({ accountant_id: req.accountant_id, _id: req.params.id }, function(err, customer) {
     if (err) { return next(err); }
     res.status(200).json(customer);
@@ -94,7 +93,7 @@ router.get('/:id', auth, function(req, res, next) {
 });
 
 /**
- * @api {put} /customers/:id Update customer
+ * @api {put} /accountant/customers/:id Update customer
  * @apiName UpdateCustomers
  * @apiGroup Customer
  * @apiVersion 0.1.0
@@ -114,7 +113,7 @@ router.get('/:id', auth, function(req, res, next) {
  * @apiSuccess (204) null
  */
 
-router.put('/:id', auth, function(req, res, next) {
+router.put('/:id', function(req, res, next) {
   var query = { accountant_id: req.accountant_id, _id: req.params.id };
 
   Customer.findOneAndUpdate(query, req.body, function(err, customer) {
@@ -124,7 +123,7 @@ router.put('/:id', auth, function(req, res, next) {
 });
 
 /**
- * @api {delete} /customers/:id Delete customer
+ * @api {delete} /accountant/customers/:id Delete customer
  * @apiName DeleteCustomers
  * @apiGroup Customer
  * @apiVersion 0.1.0
@@ -134,7 +133,7 @@ router.put('/:id', auth, function(req, res, next) {
  * @apiSuccess (204) null
  */
 
-router.delete('/:id', auth, function(req, res, next) {
+router.delete('/:id', function(req, res, next) {
   var query = { accountant_id: req.accountant_id, _id: req.params.id };
 
   Customer.remove(query, function(err) {

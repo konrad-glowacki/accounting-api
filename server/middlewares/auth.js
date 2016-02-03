@@ -1,9 +1,8 @@
 var config = require('../config');
 var jwt = require('jsonwebtoken');
-var Accountant = require('../models/accountant');
 
 // route middleware to verify a token
-var auth = function(req, res, next) {
+var auth = function(type, req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
   if (token) {
@@ -11,7 +10,7 @@ var auth = function(req, res, next) {
       if (err) {
         return res.status(403).send('Failed to authenticate token');
       } else {
-        req.accountant_id = decoded;
+        req[type + '_id'] = decoded;
         next();
       }
     });
@@ -20,4 +19,12 @@ var auth = function(req, res, next) {
   }
 };
 
-module.exports = auth;
+module.exports = {
+  accountant: function(req, res, next) {
+    auth('accountant', req, res, next);
+  },
+
+  customer: function(req, res, next) {
+    auth('customer', req, res, next);
+  }
+};
