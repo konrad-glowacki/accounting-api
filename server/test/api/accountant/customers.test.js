@@ -152,6 +152,24 @@ describe('Requests for customers', function() {
     });
   });
 
+  describe('PUT /api/accountant/customers/:id/invitation', function() {
+    var customer = customers.kowalski;
+
+    it('Sent invitation email to customer with success', function(done) {
+      var accountant_id = accountants.taxminder._id.toString();
+      var token = jwt.sign(accountant_id, app.get('secret_key'));
+
+      request(app)
+        .put('/api/accountant/customers/' + customer._id + '/invitation')
+        .set('x-access-token', token)
+        .end(function(error, res) {
+          expect(res.status).to.equal(204);
+          expect(res.body).to.be.empty();
+          done();
+        });
+    });
+  });
+
   describe('DELETE /api/accountant/customers/:id', function() {
     var customer = customers.kowalski;
 

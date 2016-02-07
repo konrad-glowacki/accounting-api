@@ -8,6 +8,7 @@ function internalError(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', { message: err.message, error: err });
   } else {
+    console.log(err);
     res.status(err.status || 500);
     res.render('error', { message: err.message, error: err });
   }

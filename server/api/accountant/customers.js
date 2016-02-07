@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var Customer = require('../models/customer');
+var mailer = require(__base + '/lib/mailer');
+var Customer = require(__base + '/models/customer');
+var Accountant = require(__base + '/models/accountant');
 
 /**
  * @api {post} /accountant/customers Create a customer
@@ -119,6 +121,31 @@ router.put('/:id', function(req, res, next) {
   Customer.findOneAndUpdate(query, req.body, function(err, customer) {
     if (err) { return next(err); }
     res.status(204).json(null);
+  });
+});
+
+/**
+ * @api {put} /accountant/customers/:id/invitation Sent invitation to customer
+ * @apiName InvitationCustomer
+ * @apiGroup Customer
+ * @apiVersion 0.1.0
+ *
+ * @apiHeader {String} x-access-token Accountant unique access token
+ * @apiSuccess (204) null
+ */
+
+router.put('/:id/invitation', function(req, res, next) {
+  var query = { accountant_id: req.accountant_id, _id: req.params.id };
+
+  Accountant.findById(req.accountant_id, function(err, accountant) {
+    if (err) { return next(err); }
+
+    Customer.findOne(query, req.body, function(err, customer) {
+      if (err) { return next(err); }
+
+      mailer.accountantInvitation(accountant, customer);
+      res.status(204).json(null);
+    });
   });
 });
 

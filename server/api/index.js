@@ -7,6 +7,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.use('/api/accountants', require('./accountants'));
-router.use('/api/accountant/customers', accountantAuth, require('./customers'));
+router.use('/api/accountant/customers', accountantAuth, require('./accountant/customers'));
 
 module.exports = router;

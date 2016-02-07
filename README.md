@@ -9,6 +9,7 @@ RESTful API for accounting small companies implemented in NodeJS.
 ### Server:
   - express
   - mongodb
+  - jade
 
 ### Tests
   - mocha
@@ -33,3 +34,4 @@ Add customer | POST `/api/accountant/customers`
 Get customer data | GET `/api/accountant/customers/:id`
 Edit customer | PUT `/api/accountant/customers/:id`
 Delete customer | DELETE `/api/accountant/customers/:id`
+Send invitation to customer | PUT `/api/accountant/customers/:id/invitation`
