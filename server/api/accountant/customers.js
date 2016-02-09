@@ -143,8 +143,9 @@ router.put('/:id/invitation', function(req, res, next) {
     Customer.findOne(query, req.body, function(err, customer) {
       if (err) { return next(err); }
 
-      mailer.accountantInvitation(accountant, customer);
-      res.status(204).json(null);
+      mailer.accountantInvitation(accountant, customer).then(function() {
+        res.status(204).json(null);
+      });
     });
   });
 });
