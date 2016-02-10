@@ -1,14 +1,16 @@
 require('../../test_helper');
 
+var sinon = require('sinon'),
+    request = require('supertest'),
+    expect = require('expect.js'),
+    jwt = require('jsonwebtoken');
+
 var app = require(__base + 'app');
+var mailer = require(__base + '/lib/mailer');
 var Customer = require(__base + 'models/customer');
 
 var accountants = require('../../fixtures/accountants').accountants;
 var customers = require('../../fixtures/customers').customers;
-
-var request = require('supertest');
-var expect = require('expect.js');
-var jwt = require('jsonwebtoken');
 
 describe('Requests for customers', function() {
 
@@ -154,6 +156,14 @@ describe('Requests for customers', function() {
 
   describe('PUT /api/accountant/customers/:id/invitation', function() {
     var customer = customers.kowalski;
+
+    before(function(done) {
+      sinon
+        .stub(mailer, 'accountantInvitation')
+        .yields(null, '250 Message accepted');
+
+      done();
+    });
 
     it('Sent invitation email to customer with success', function(done) {
       var accountant_id = accountants.taxminder._id.toString();

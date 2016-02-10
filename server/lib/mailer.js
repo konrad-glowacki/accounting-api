@@ -10,9 +10,9 @@ var templatePath = function(name) {
   return __base + '/templates/mailers/' + name + '.jade';
 };
 
-mailer.accountantInvitation = function(accountant, customer, recipients) {
+mailer.accountantInvitation = function(accountant, customer, callback) {
   var mailOptions = {
-    from: accountant.name + '<' + accountant.email + '>',
+    from: accountant.name + ' <' + accountant.email + '>',
     to: customer.email,
     subject: "Activate your account in accounting app",
     html: jade.renderFile(templatePath('accountant_invitation'), {
@@ -20,14 +20,9 @@ mailer.accountantInvitation = function(accountant, customer, recipients) {
     })
   };
 
-  return new Promise(function(resolve, reject) {
-    transporter.sendMail(mailOptions, function(err, info) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(info.response);
-      }
-    });
+  transporter.sendMail(mailOptions, function(err, info) {
+    if (err) { return callback(err); }
+    callback(null, info);
   });
 };
 
