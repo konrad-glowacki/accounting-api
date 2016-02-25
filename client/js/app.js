@@ -1,30 +1,32 @@
 (function(){
 	var app = angular.module('mkApp', ['ngRoute']);
 
-	app.config(['$routeProvider', function($routeProvider) {
+	app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		$routeProvider
 			.when('/users', {
 				//controller: 'UsersListCtrl',
 				templateUrl: 'views/accountant/users-list.html',
-                label: 'Lista użytkowników'
+					label: 'Lista użytkowników'
 			})
 			.when('/users/:userId/monthly', {
 				//controller: 'UserMonthlyCtrl',
 				templateUrl: 'views/user/monthly.html',
-                label: 'Rozliczenia miesięczne użytkownika'
+				label: 'Rozliczenia miesięczne użytkownika'
 			})
 			.when('/users/:userId/quarterly', {
 				//controller: 'UserQuarterlyCtrl',
 				templateUrl: 'views/user/quarterly.html',
-                label: 'Rozliczenia kwartalne użytkownika'
+				label: 'Rozliczenia kwartalne użytkownika'
 			})
 			.when('/users/:userId', {
 				//controller: 'UserDetailsCtrl',
 				templateUrl: 'views/accountant/user-details.html',
-                label: 'Karta użytkownika'
+				label: 'Karta użytkownika'
 			})
-			.otherwise({ redirectTo: '/users' })
+			//.otherwise({ redirectTo: '/users' })
 		;
+
+		$locationProvider.html5Mode(true);
 	}]);
 	// app.controller('UsersListCtrl', ['$scope', function($scope){
 		
