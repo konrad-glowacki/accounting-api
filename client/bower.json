@@ -1,0 +1,24 @@
+{
+  "name": "accounting-frontend",
+  "homepage": "https://github.com/webkrak/accounting-api",
+  "authors": [
+    "Konrad Głowacki <konrad@webkrak.pl>"
+  ],
+  "description": "Angular frontend for accounting app",
+  "main": "",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0"
+  }
+}

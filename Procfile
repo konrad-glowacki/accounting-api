@@ -1,2 +1,3 @@
 mongodb: mongod --config /usr/local/etc/mongod.conf
-web: node ./bin/server
+server: node ./bin/server
+client: node ./bin/client
