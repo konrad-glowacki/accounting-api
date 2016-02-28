@@ -14,7 +14,7 @@
 	<FilesMatch "\.(js|css)$">
 	    Header always set Cache-Control "max-age=31536000, public"
 	</FilesMatch>
-	<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|JPG|ttf)$">
+	<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|JPG|ttf|svg)$">
 	    Header always set Cache-Control "max-age=31536000, public"
 	</FilesMatch>
 </ifModule>
