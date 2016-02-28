@@ -1,1 +1,75 @@
-<div class="row"><div class="col-xs-12">Lista użytkowników</div></div>
+<div class="row">
+  <div class="col-sm-3 pull-right text-right">
+    <a href="/#/users/new" class="btn btn-success" title="Dodaj nowego użytkownika">Dodaj nowego użytkownika <i class="glyphicon glyphicon-plus"></i></a>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <table id="table-users-list" class="no-border-x table">
+        <thead>
+            <tr>
+              <th class="text-uppercase">Imię i nazwisko klienta</th>
+              <th>NIP</th>
+              <th>Czy Klient został zaksięgowany za poprzedni miesiąc?</th>
+              <th>Wyślij klientowi powiadomienie mailowe, że ostatni miesiąc został zaksięgowany</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="bg-success">
+              <td>Wacław Frączek</td>
+              <td>201501201503</td>
+              <td>
+                <label class="radio-inline">
+                  <input type="radio" name="entry-in-accounts-1" id="entryYesUser-1" value="entryYesUser-1" checked="checked">TAK
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="entry-in-accounts-1" id="entryNoUser-1" value="entryNoUser-1">NIE
+                </label>
+              </td>
+              <td>Wysłano <button class="btn btn-success">Wyślij ponownie</button></td>
+            </tr>
+            <tr class="bg-warning">
+              <td>Wacław Frączek 2</td>
+              <td>201501201503</td>
+              <td>
+                <label class="radio-inline">
+                  <input type="radio" name="entry-in-accounts-2" id="entryYesUser-2" value="entryYesUser-2" checked="checked">TAK
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="entry-in-accounts-2" id="entryNoUser-2" value="entryNoUser-2">NIE
+                </label>
+              </td>
+              <td>nie wysłano</td>
+            </tr>
+            <tr class="bg-warning">
+              <td>Wacław Frączek 3</td>
+              <td>201501201503</td>
+              <td>
+                <label class="radio-inline">
+                  <input type="radio" name="entry-in-accounts-3" id="entryYesUser-3" value="entryYesUser-3">TAK
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="entry-in-accounts-3" id="entryNoUser-3" value="entryNoUser-3" checked="checked">NIE
+                </label>
+              </td>
+              <td>nie wysłano</td>
+            </tr>
+            <tr class="bg-warning">
+              <td>Wacław Frączek 4</td>
+              <td>201501201503</td>
+              <td>
+                <label class="radio-inline">
+                  <input type="radio" name="entry-in-accounts-4" id="entryYesUser-4" value="entryYesUser-4">TAK
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="entry-in-accounts-4" id="entryNoUser-4" value="entryNoUser-4" checked="checked">NIE
+                </label>
+              </td>
+              <td>nie wysłano</td>
+            </tr>
+        </tbody>
+    </table>    
+  </div>
+  <div class="col-xs-8 col-sm-3 center-block table-block"><button type="button" class="btn btn-primary btn-block btn-lg">Zapisz zmiany</button></p>
+</div>

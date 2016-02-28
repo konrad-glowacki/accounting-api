@@ -1,1 +1,85 @@
-<div class="row"><div class="col-xs-12">Dodanie użytkownika</div></div>
+<div class="row">
+  <div class="col-sm-7 col-md-6 center-block table-block">
+    <div class="page-header text-center">
+      <h3>Nowy użytkownik</h3>
+    </div>
+    <form name="userForm" class="form-horizontal" novalidate>
+      <div class="form-group">
+        <label for="user-name" class="col-sm-4 col-md-3">Imię i nazwisko</label>
+        <div class="col-sm-8 col-md-9">
+          <input name="userName" type="text" id="user-name" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="user-nip" class="col-sm-4 col-md-3">NIP</label>
+        <div class="col-sm-8 col-md-9">
+          <input name="userNIP" type="text" id="user-nip" class="form-control">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="user-email" class="col-sm-4 col-md-3">E-mail</label>
+        <div class="col-sm-8 col-md-9">
+          <input name="userEmail" type="email" id="user-email" class="form-control">
+        </div>
+      </div>
+      <hr>
+      <div class="form-radio-group">
+        <label>Użytkownik</label>
+        <div class="radio">
+          <label for="user-vat-yes">
+            <input type="radio" name="userVAT" id="user-vat-yes" value="user-vat-yes">Jest VATowcem
+          </label>
+        </div>
+        <div class="radio">
+          <label for="user-vat-no">
+            <input type="radio" name="userVAT" id="user-vat-no" value="user-vat-no">Nie jest VATowcem
+          </label>
+        </div>      
+        <hr>   
+      </div>
+      <div class="form-radio-group">
+        <label>Forma rozliczenia</label>
+        <div class="radio">
+          <label for="monthly">
+            <input type="radio" name="form-of-settlement" id="monthly" value="monthly">Miesięcznie
+          </label>
+        </div>
+        <div class="radio">
+          <label for="quarterly">
+            <input type="radio" name="form-of-settlement" id="quarterly" value="quarterly">Kwartalnie
+          </label>
+        </div>      
+        <hr>   
+      </div>
+      <div class="form-radio-group">
+        <label>Użytkownik</label>
+        <div class="radio">
+          <label for="pay-zus-yes">
+            <input type="radio" name="payZUS" id="pay-zus-yes" value="pay-zus-yes">Płaci ZUS
+          </label>
+        </div>
+        <div class="radio">
+          <label for="pay-zus-no">
+            <input type="radio" name="payZUS" id="pay-zus-no" value="pay-zus-no">Nie płaci ZUS-u
+          </label>
+        </div>      
+        <hr>   
+      </div>
+      <div class="form-radio-group">
+        <label>Użytkownik</label>
+        <div class="radio">
+          <label for="user-vat-yes">
+            <input type="radio" name="hasEmployees" id="employees-yes" value="employees-yes">Ma pracowników
+          </label>
+        </div>
+        <div class="radio">
+          <label for="employees-no">
+            <input type="radio" name="hasEmployees" id="employees-no" value="user-vat-no">Nie ma pracowników
+          </label>
+        </div>      
+        <hr>   
+      </div>
+      <p class="text-right"><button class="btn btn-success">Zapisz</button></p>
+    </form>
+  </div>
+</div>

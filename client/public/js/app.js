@@ -23,6 +23,11 @@
 				templateUrl: 'views/accountant/user-details.html',
 				label: 'Karta użytkownika'
 			})
+			.when('/user/add', {
+				//controller: 'UserAddCtrl',
+				templateUrl: 'views/accountant/user-add.html',
+				label: 'Dodanie nowego użytkownika'
+			})
 			//.otherwise({ redirectTo: '/users' })
 		;
 
