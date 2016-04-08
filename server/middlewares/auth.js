@@ -13,7 +13,7 @@ let auth = function (type, req, res, next) {
         return res.status(403).send('Failed to authenticate token');
       }
 
-      req[type + '_id'] = decoded;
+      req[type + 'Id'] = decoded;
       next();
     });
   } else {

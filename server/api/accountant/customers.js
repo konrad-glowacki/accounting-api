@@ -15,28 +15,28 @@ const Accountant = require(__base + '/models/accountant');
  * @apiHeader {String} x-access-token Accountant unique access token
  *
  * @apiParam {String} name Customer full name
- * @apiParam {String} company_name Customer company name
+ * @apiParam {String} companyName Customer company name
  * @apiParam {String} email Customer Email
  * @apiParam {String} phone Customer Phone
- * @apiParam {String} tax_id Customer Tax Id
- * @apiParam {String="monthly","quarterly"} settlement_period Customer settlement period
- * @apiParam {Boolean} vat_payer Customer pays VAT
- * @apiParam {Boolean} social_security_payer Customer pays ZUS
- * @apiParam {Boolean} has_employees Customer has employees
+ * @apiParam {String} taxId Customer Tax Id
+ * @apiParam {String="monthly","quarterly"} settlementPeriod Customer settlement period
+ * @apiParam {Boolean} settlementPeriod Customer pays VAT
+ * @apiParam {Boolean} socialSecurityPayer Customer pays ZUS
+ * @apiParam {Boolean} hasEmployees Customer has employees
  *
  * @apiSuccessExample Example data on success:
  * {
  *   _id: "asdfasdfasdffd",
  *   name: "Jan Kowalski",
- *   company_name: "PolKrak",
+ *   companyName: "PolKrak",
  *   email: "kowalski@gmail.com",
  *   phone: "+48 333 222 111",
- *   tax_id: "PL123432134",
- *   settlement_period: "quarterly",
- *   vat_payer: true,
- *   social_security_payer: true,
- *   has_employees: false,
- *   created_at: "2016-01-30T22:44:22.353Z"
+ *   taxId: "PL123432134",
+ *   settlementPeriod: "quarterly",
+ *   settlementPeriod: true,
+ *   socialSecurityPayer: true,
+ *   hasEmployees: false,
+ *   createdAt: "2016-01-30T22:44:22.353Z"
  * }
  */
 
@@ -65,34 +65,36 @@ router.post('/', function (req, res, next) {
  * @apiHeader {String} x-access-token Accountant unique access token
  *
  * @apiSuccess {String} name Customer full name
- * @apiSuccess {String} company_name Customer company name
+ * @apiSuccess {String} companyName Customer company name
  * @apiSuccess {String} email Customer Email
  * @apiSuccess {String} phone Customer Phone
- * @apiSuccess {String} tax_id Customer Tax Id
- * @apiSuccess {String="monthly","quarterly"} settlement_period Customer settlement period
- * @apiSuccess {Boolean} vat_payer Customer pays VAT
- * @apiSuccess {Boolean} social_security_payer Customer pays ZUS
- * @apiSuccess {Boolean} has_employees Customer has employees
+ * @apiSuccess {String} taxId Customer Tax Id
+ * @apiSuccess {String="monthly","quarterly"} settlementPeriod Customer settlement period
+ * @apiSuccess {Boolean} settlementPeriod Customer pays VAT
+ * @apiSuccess {Boolean} socialSecurityPayer Customer pays ZUS
+ * @apiSuccess {Boolean} hasEmployees Customer has employees
  *
  * @apiSuccessExample Example data on success:
  * {
  *   _id: "asdfasdfasdffd",
  *   name: "Jan Kowalski",
- *   company_name: "PolKrak",
+ *   companyName: "PolKrak",
  *   email: "kowalski@gmail.com",
  *   phone: "+48 333 222 111",
- *   tax_id: "PL123432134",
- *   settlement_period: "quarterly",
- *   vat_payer: true,
- *   social_security_payer: true,
- *   has_employees: false,
- *   created_at: "2016-01-30T22:44:22.353Z"
+ *   taxId: "PL123432134",
+ *   settlementPeriod: "quarterly",
+ *   vatPayer: true,
+ *   socialSecurity_payer: true,
+ *   hasEmployees: false,
+ *   createdAt: "2016-01-30T22:44:22.353Z"
  * }
  */
 
 router.get('/:id', function (req, res, next) {
   Customer.findOne({ accountantId: req.accountantId, _id: req.params.id }, function (err, customer) {
-    if (err) { return next(err); }
+    if (err) {
+      return next(err);
+    }
 
     res.status(200).json(customer);
   });
@@ -107,14 +109,14 @@ router.get('/:id', function (req, res, next) {
  * @apiHeader {String} x-access-token Accountant unique access token
  *
  * @apiParam {String} name Customer full name
- * @apiParam {String} company_name Customer company name
+ * @apiParam {String} companyName Customer company name
  * @apiParam {String} email Customer Email
  * @apiParam {String} phone Customer Phone
- * @apiParam {String} tax_id Customer Tax Id
- * @apiParam {String="monthly","quarterly"} settlement_period Customer settlement period
- * @apiParam {Boolean} vat_payer Customer pays VAT
- * @apiParam {Boolean} social_security_payer Customer pays ZUS
- * @apiParam {Boolean} has_employees Customer has employees
+ * @apiParam {String} taxId Customer Tax Id
+ * @apiParam {String="monthly","quarterly"} settlementPeriod Customer settlement period
+ * @apiParam {Boolean} settlementPeriod Customer pays VAT
+ * @apiParam {Boolean} socialSecurityPayer Customer pays ZUS
+ * @apiParam {Boolean} hasEmployees Customer has employees
  *
  * @apiSuccess (204) null
  */

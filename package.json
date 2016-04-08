@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "bcrypt": "latest",
-    "bluebird": "^3.2.2",
+    "bluebird": "latest",
     "body-parser": "latest",
     "cookie-parser": "latest",
     "debug": "latest",
@@ -20,12 +20,12 @@
     "grunt-apidoc": "latest",
     "grunt-cli": "latest",
     "jsonwebtoken": "latest",
-    "kerberos": "0.0.19",
-    "mongodb": "^2.1.16",
+    "kerberos": "latest",
+    "mongodb": "latest",
     "mongoose": "latest",
     "mongoose-unique-validator": "latest",
     "morgan": "latest",
-    "nodemailer": "^2.1.0",
+    "nodemailer": "latest",
     "pug": "latest"
   },
   "devDependencies": {

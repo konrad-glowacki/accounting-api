@@ -19,7 +19,7 @@ describe('Requests for customers', function () {
   describe('POST /api/accountant/customers', function () {
     it('Create customer with success', function (done) {
       const accountantId = accountants.taxminder._id.toString();
-      const token = jwt.sign(accountantId, app.get('secret_key'));
+      const token = jwt.sign(accountantId, app.get('secretKey'));
 
       request(app)
         .post('/api/accountant/customers')
@@ -47,7 +47,7 @@ describe('Requests for customers', function () {
     });
 
     it('Errors during create customer', function (done) {
-      const token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret_key'));
+      const token = jwt.sign(accountants.taxminder._id.toString(), app.get('secretKey'));
 
       request(app)
         .post('/api/accountant/customers')
@@ -82,7 +82,7 @@ describe('Requests for customers', function () {
 
     it('Get customer data with success', function (done) {
       const accountantId = accountants.taxminder._id.toString();
-      const token = jwt.sign(accountantId, app.get('secret_key'));
+      const token = jwt.sign(accountantId, app.get('secretKey'));
 
       request(app)
         .get('/api/accountant/customers/' + customer._id)
@@ -100,14 +100,13 @@ describe('Requests for customers', function () {
           expect(res.body.vatPayer).to.equal(customer.vatPayer);
           expect(res.body.socialSecurityPayer).to.equal(customer.socialSecurityPayer);
           expect(res.body.hasEmployees).to.equal(customer.hasEmployees);
-          expect(res.body.createdAt).not.to.empty();
           done();
         });
     });
 
     it('Getting a customer for another accountant', function (done) {
       const accountantId = accountants.easytax._id.toString();
-      const token = jwt.sign(accountantId, app.get('secret_key'));
+      const token = jwt.sign(accountantId, app.get('secretKey'));
 
       request(app)
         .get('/api/accountant/customers/' + customer._id)
@@ -125,7 +124,7 @@ describe('Requests for customers', function () {
 
     it('Update customer with success', function (done) {
       const accountantId = accountants.taxminder._id.toString();
-      const token = jwt.sign(accountantId, app.get('secret_key'));
+      const token = jwt.sign(accountantId, app.get('secretKey'));
 
       request(app)
         .put('/api/accountant/customers/' + customer._id)
@@ -169,7 +168,7 @@ describe('Requests for customers', function () {
 
     it('Sent invitation email to customer with success', function (done) {
       const accountantId = accountants.taxminder._id.toString();
-      const token = jwt.sign(accountantId, app.get('secret_key'));
+      const token = jwt.sign(accountantId, app.get('secretKey'));
 
       request(app)
         .put('/api/accountant/customers/' + customer._id + '/invitation')
@@ -187,7 +186,7 @@ describe('Requests for customers', function () {
 
     it('Delete customer with success', function (done) {
       const accountantId = accountants.taxminder._id.toString();
-      const token = jwt.sign(accountantId, app.get('secret_key'));
+      const token = jwt.sign(accountantId, app.get('secretKey'));
 
       request(app)
         .delete('/api/accountant/customers/' + customer._id)

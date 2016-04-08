@@ -6,7 +6,7 @@ const path = require('path');
 const initializers = require('./initializers');
 const app = express();
 
-app.set('secret_key', config.secretKey);
+app.set('secretKey', config.secretKey);
 
 if (app.get('env') !== 'test') {
   const logger = require('morgan');

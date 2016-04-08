@@ -62,7 +62,7 @@ describe('Requests for accountant', function () {
 
   describe('GET /api/accountants/profile', function () {
     it('Return accountant data', function (done) {
-      const token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret_key'));
+      const token = jwt.sign(accountants.taxminder._id.toString(), app.get('secretKey'));
 
       request(app)
         .get('/api/accountants/profile')
@@ -71,7 +71,6 @@ describe('Requests for accountant', function () {
           expect(res.status).to.equal(200);
           expect(res.body.name).to.equal(accountants.taxminder.name);
           expect(res.body.email).to.equal(accountants.taxminder.email);
-          expect(res.body.createdAt).not.to.empty();
           expect(res.body.password).to.be(undefined);
           done();
         });
