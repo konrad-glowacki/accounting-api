@@ -8,7 +8,7 @@
     "test": "mocha --colors --reporter spec --recursive test"
   },
   "dependencies": {
-    "bcrypt": "latest",
+    "bcryptjs": "latest",
     "bluebird": "latest",
     "body-parser": "latest",
     "cookie-parser": "latest",
