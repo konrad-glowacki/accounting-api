@@ -5,7 +5,7 @@
   "scripts": {
     "postinstall": "grunt",
     "start": "nodemon ./bin/server",
-    "test": "mocha --colors --reporter spec --recursive server/test/api"
+    "test": "mocha --colors --reporter spec --recursive test"
   },
   "dependencies": {
     "bcrypt": "latest",

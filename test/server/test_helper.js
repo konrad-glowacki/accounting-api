@@ -7,5 +7,5 @@ if (process.env.NODE_ENV !== 'test') {
   process.exit(1);
 }
 
-const config = require('../config');
+const config = require('../../server/config');
 const utils = require('./utils');
