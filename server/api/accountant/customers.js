@@ -1,8 +1,10 @@
-var express = require('express');
-var router = express.Router();
-var mailer = require(__base + '/lib/mailer');
-var Customer = require(__base + '/models/customer');
-var Accountant = require(__base + '/models/accountant');
+'use strict';
+
+const express = require('express');
+const router = express.Router();
+const mailer = require(__base + '/lib/mailer');
+const Customer = require(__base + '/models/customer');
+const Accountant = require(__base + '/models/accountant');
 
 /**
  * @api {post} /accountant/customers Create a customer
@@ -38,17 +40,18 @@ var Accountant = require(__base + '/models/accountant');
  * }
  */
 
-router.post('/', function(req, res, next) {
-  var customer = new Customer({
-    accountant_id: req.accountant_id,
-    name: req.body.name, company_name: req.body.company_name,
-    email: req.body.email, phone: req.body.phone, tax_id: req.body.tax_id,
-    settlement_period: req.body.settlement_period, vat_payer: req.body.vat_payer,
-    social_security_payer: req.body.social_security_payer, has_employees: req.body.has_employees
+router.post('/', function (req, res, next) {
+  let customer = new Customer({
+    accountantId: req.accountantId,
+    name: req.body.name, companyName: req.body.companyName,
+    email: req.body.email, phone: req.body.phone, taxId: req.body.taxId,
+    settlementPeriod: req.body.settlementPeriod, vatPayer: req.body.vatPayer,
+    socialSecurityPayer: req.body.socialSecurityPayer, hasEmployees: req.body.hasEmployees
   });
 
-  customer.save(function(err) {
+  customer.save(function (err) {
     if (err) { return next(err); }
+
     res.status(200).json(customer);
   });
 });
@@ -87,9 +90,10 @@ router.post('/', function(req, res, next) {
  * }
  */
 
-router.get('/:id', function(req, res, next) {
-  Customer.findOne({ accountant_id: req.accountant_id, _id: req.params.id }, function(err, customer) {
+router.get('/:id', function (req, res, next) {
+  Customer.findOne({ accountantId: req.accountantId, _id: req.params.id }, function (err, customer) {
     if (err) { return next(err); }
+
     res.status(200).json(customer);
   });
 });
@@ -115,11 +119,12 @@ router.get('/:id', function(req, res, next) {
  * @apiSuccess (204) null
  */
 
-router.put('/:id', function(req, res, next) {
-  var query = { accountant_id: req.accountant_id, _id: req.params.id };
+router.put('/:id', function (req, res, next) {
+  let query = { accountantId: req.accountantId, _id: req.params.id };
 
-  Customer.findOneAndUpdate(query, req.body, function(err, customer) {
+  Customer.findOneAndUpdate(query, req.body, function (err, customer) {
     if (err) { return next(err); }
+
     res.status(204).json(null);
   });
 });
@@ -134,17 +139,18 @@ router.put('/:id', function(req, res, next) {
  * @apiSuccess (204) null
  */
 
-router.put('/:id/invitation', function(req, res, next) {
-  var query = { accountant_id: req.accountant_id, _id: req.params.id };
+router.put('/:id/invitation', function (req, res, next) {
+  let query = { accountantId: req.accountantId, _id: req.params.id };
 
-  Accountant.findById(req.accountant_id, function(err, accountant) {
+  Accountant.findById(req.accountantId, function (err, accountant) {
     if (err) { return next(err); }
 
-    Customer.findOne(query, req.body, function(err, customer) {
+    Customer.findOne(query, req.body, function (err, customer) {
       if (err) { return next(err); }
 
-      mailer.accountantInvitation(accountant, customer, function(err) {
+      mailer.accountantInvitation(accountant, customer, function (err) {
         if (err) { return next(err); }
+
         res.status(204).json(null);
       });
     });
@@ -162,11 +168,12 @@ router.put('/:id/invitation', function(req, res, next) {
  * @apiSuccess (204) null
  */
 
-router.delete('/:id', function(req, res, next) {
-  var query = { accountant_id: req.accountant_id, _id: req.params.id };
+router.delete('/:id', function (req, res, next) {
+  let query = { accountantId: req.accountantId, _id: req.params.id };
 
-  Customer.remove(query, function(err) {
+  Customer.remove(query, function (err) {
     if (err) { return next(err); }
+
     res.status(204).json(null);
   });
 });

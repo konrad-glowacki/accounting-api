@@ -3,6 +3,7 @@
   "disallowKeywordsOnNewLine": ["else"],
   "disallowMixedSpacesAndTabs": true,
   "disallowMultipleVarDecl": "exceptUndefined",
+  "disallowVar": true,
   "disallowNewlineBeforeBlockStatements": true,
   "disallowQuotedKeysInObjects": true,
   "disallowSpaceAfterObjectKeys": true,

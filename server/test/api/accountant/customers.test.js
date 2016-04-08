@@ -12,10 +12,10 @@ var Customer = require(__base + 'models/customer');
 var accountants = require('../../fixtures/accountants').accountants;
 var customers = require('../../fixtures/customers').customers;
 
-describe('Requests for customers', function() {
+describe('Requests for customers', function () {
 
-  describe('POST /api/accountant/customers', function() {
-    it('Create customer with success', function(done) {
+  describe('POST /api/accountant/customers', function () {
+    it('Create customer with success', function (done) {
       var accountant_id = accountants.taxminder._id.toString();
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
@@ -26,7 +26,7 @@ describe('Requests for customers', function() {
           name: 'Jan Kowalski', company_name: 'Jankowo', email: 'test@example.com', phone: '100200300',
           tax_id: '945-212-168 1', settlement_period: 'quarterly', vat_payer: false, social_security_payer: true,
           has_employees: false
-        }).end(function(error, res) {
+        }).end(function (error, res) {
           expect(res.status).to.equal(200);
           expect(res.body._id).not.to.empty();
           expect(res.body.accountant_id).to.equal(accountant_id);
@@ -44,14 +44,14 @@ describe('Requests for customers', function() {
         });
     });
 
-    it('Errors during create customer', function(done) {
+    it('Errors during create customer', function (done) {
       var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret_key'));
 
       request(app)
         .post('/api/accountant/customers')
         .set('x-access-token', token)
         .send({ company_name: 'Jankowo', email: 'test', phone: '100200300', settlement_period: 'error' })
-        .end(function(error, res) {
+        .end(function (error, res) {
           expect(res.status).to.equal(422);
           expect(res.body.errors.email).not.to.empty();
           expect(res.body.errors.name).not.to.empty();
@@ -64,28 +64,28 @@ describe('Requests for customers', function() {
         });
     });
 
-    it('Unathorized access to create customer', function(done) {
+    it('Unathorized access to create customer', function (done) {
       request(app)
         .post('/api/accountant/customers')
         .send({})
-        .end(function(error, res) {
+        .end(function (error, res) {
           expect(res.status).to.equal(403);
           done();
         });
     });
   });
 
-  describe('GET /api/accountant/customers/:id', function() {
+  describe('GET /api/accountant/customers/:id', function () {
     var customer = customers.kowalski;
 
-    it('Get customer data with success', function(done) {
+    it('Get customer data with success', function (done) {
       var accountant_id = accountants.taxminder._id.toString();
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
         .get('/api/accountant/customers/' + customer._id)
         .set('x-access-token', token)
-        .end(function(error, res) {
+        .end(function (error, res) {
           expect(res.status).to.equal(200);
           expect(res.body._id).to.equal(customer._id.toString());
           expect(res.body.accountant_id).to.equal(accountant_id);
@@ -103,14 +103,14 @@ describe('Requests for customers', function() {
         });
     });
 
-    it('Getting a customer for another accountant', function(done) {
+    it('Getting a customer for another accountant', function (done) {
       var accountant_id = accountants.easytax._id.toString();
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
         .get('/api/accountant/customers/' + customer._id)
         .set('x-access-token', token)
-        .end(function(error, res) {
+        .end(function (error, res) {
           expect(res.status).to.equal(200);
           expect(res.body).to.be(null);
           done();
@@ -118,10 +118,10 @@ describe('Requests for customers', function() {
     });
   });
 
-  describe('PUT /api/accountant/customers/:id', function() {
+  describe('PUT /api/accountant/customers/:id', function () {
     var customer = customers.kowalski;
 
-    it('Update customer with success', function(done) {
+    it('Update customer with success', function (done) {
       var accountant_id = accountants.taxminder._id.toString();
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
@@ -129,11 +129,11 @@ describe('Requests for customers', function() {
         .put('/api/accountant/customers/' + customer._id)
         .set('x-access-token', token)
         .send({ company_name: 'Changed', email: 'changed@test.com', settlement_period: 'monthly' })
-        .end(function(error, res) {
+        .end(function (error, res) {
           expect(res.status).to.equal(204);
           expect(res.body).to.be.empty();
 
-          Customer.findById(customer._id, function(err, updated_customer) {
+          Customer.findById(customer._id, function (err, updated_customer) {
             expect(updated_customer.company_name).to.equal('Changed');
             expect(updated_customer.email).to.equal('changed@test.com');
             expect(updated_customer.settlement_period).to.equal('monthly');
@@ -142,22 +142,22 @@ describe('Requests for customers', function() {
         });
     });
 
-    it('Unathorized access to update customer', function(done) {
+    it('Unathorized access to update customer', function (done) {
       request(app)
         .put('/api/accountant/customers/' + customer._id)
         .set('x-access-token', 'fake-token')
         .send({ company_name: 'Changed' })
-        .end(function(err, res) {
+        .end(function (err, res) {
           expect(res.status).to.equal(403);
           done();
         });
     });
   });
 
-  describe('PUT /api/accountant/customers/:id/invitation', function() {
+  describe('PUT /api/accountant/customers/:id/invitation', function () {
     var customer = customers.kowalski;
 
-    before(function(done) {
+    before(function (done) {
       sinon
         .stub(mailer, 'accountantInvitation')
         .yields(null, '250 Message accepted');
@@ -165,14 +165,14 @@ describe('Requests for customers', function() {
       done();
     });
 
-    it('Sent invitation email to customer with success', function(done) {
+    it('Sent invitation email to customer with success', function (done) {
       var accountant_id = accountants.taxminder._id.toString();
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
         .put('/api/accountant/customers/' + customer._id + '/invitation')
         .set('x-access-token', token)
-        .end(function(error, res) {
+        .end(function (error, res) {
           expect(res.status).to.equal(204);
           expect(res.body).to.be.empty();
           done();
@@ -180,32 +180,32 @@ describe('Requests for customers', function() {
     });
   });
 
-  describe('DELETE /api/accountant/customers/:id', function() {
+  describe('DELETE /api/accountant/customers/:id', function () {
     var customer = customers.kowalski;
 
-    it('Delete customer with success', function(done) {
+    it('Delete customer with success', function (done) {
       var accountant_id = accountants.taxminder._id.toString();
       var token = jwt.sign(accountant_id, app.get('secret_key'));
 
       request(app)
         .delete('/api/accountant/customers/' + customer._id)
         .set('x-access-token', token)
-        .end(function(error, res) {
+        .end(function (error, res) {
           expect(res.status).to.equal(204);
           expect(res.body).to.be.empty();
 
-          Customer.findById(customer._id, function(err, deleted_customer) {
+          Customer.findById(customer._id, function (err, deleted_customer) {
             expect(deleted_customer).to.be(null);
             done();
           });
         });
     });
 
-    it('Unathorized access to update customer', function(done) {
+    it('Unathorized access to update customer', function (done) {
       request(app)
         .delete('/api/accountant/customers/' + customer._id)
         .set('x-access-token', 'fake-token')
-        .end(function(err, res) {
+        .end(function (err, res) {
           expect(res.status).to.equal(403);
           done();
         });

@@ -1,27 +1,30 @@
-var jade = require('jade');
-var config = require('../config');
-var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport(config.mailer_url);
-var mailer = {};
+'use strict';
 
-var Promise = require("bluebird");
+const jade = require('jade');
+const config = require('../config');
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport(config.mailerUrl);
+const mailer = {};
 
-var templatePath = function(name) {
+const Promise = require('bluebird');
+
+const templatePath = function (name) {
   return __base + '/templates/mailers/' + name + '.jade';
 };
 
-mailer.accountantInvitation = function(accountant, customer, callback) {
-  var mailOptions = {
+mailer.accountantInvitation = function (accountant, customer, callback) {
+  let mailOptions = {
     from: accountant.name + ' <' + accountant.email + '>',
     to: customer.email,
-    subject: "Activate your account in accounting app",
+    subject: 'Activate your account in accounting app',
     html: jade.renderFile(templatePath('accountant_invitation'), {
       customer: customer, accountant: accountant
     })
   };
 
-  transporter.sendMail(mailOptions, function(err, info) {
+  transporter.sendMail(mailOptions, function (err, info) {
     if (err) { return callback(err); }
+
     callback(null, info);
   });
 };

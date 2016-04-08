@@ -1,10 +1,13 @@
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
-var emailRegex = require('../lib/email_regex');
-var Schema = mongoose.Schema;
+'use strict';
 
-var Customer = new Schema({
-  accountant_id: {
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
+const emailRegex = require('../lib/email_regex');
+const Schema = mongoose.Schema;
+
+const Customer = new Schema({
+  accountantId: {
     type: Schema.Types.ObjectId,
     required: true
   },
@@ -15,7 +18,7 @@ var Customer = new Schema({
     trim: true
   },
 
-  company_name: {
+  companyName: {
     type: String,
     trim: true,
     unique: true,
@@ -27,7 +30,7 @@ var Customer = new Schema({
     trim: true
   },
 
-  tax_id: {
+  taxId: {
     type: String,
     trim: true,
     unique: true,
@@ -46,51 +49,47 @@ var Customer = new Schema({
     }
   },
 
-  encrypted_password: {
+  encryptedPassword: {
     type: String
   },
 
-  settlement_period: {
+  settlementPeriod: {
     type: String,
     enum: ['monthly', 'quarterly'],
     required: true
   },
 
-  vat_payer: {
+  vatPayer: {
     type: Boolean,
     required: true
   },
 
-  social_security_payer: {
+  socialSecurityPayer: {
     type: Boolean,
     required: true
   },
 
-  has_employees: {
+  hasEmployees: {
     type: Boolean,
     required: true
-  },
-
-  created_at: {
-    type: Date,
-    required: true,
-    default: Date.now
   }
+}, {
+  timestamps: true
 });
 
-Customer.pre('save', function(next) {
-  this.tax_id = this.tax_id.replace(/[ -]/g,'');
+Customer.pre('save', function (next) {
+  this.taxId = this.taxId.replace(/[ -]/g, '');
   next();
 });
 
 Customer.plugin(uniqueValidator);
 
-Customer.statics.generateHash = function(password) {
+Customer.statics.generateHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 
-Customer.methods.verifyPassword = function(password) {
-  return bcrypt.compareSync(password, this.encrypted_password);
+Customer.methods.verifyPassword = function (password) {
+  return bcrypt.compareSync(password, this.encryptedPassword);
 };
 
 module.exports = mongoose.model('Customer', Customer);

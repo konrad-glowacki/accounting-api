@@ -1,10 +1,12 @@
-var bcrypt = require('bcrypt');
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
-var emailRegex = require('../lib/email_regex');
-var Schema = mongoose.Schema;
+'use strict';
 
-var Accountant = new Schema({
+const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
+const emailRegex = require('../lib/email_regex');
+const Schema = mongoose.Schema;
+
+const Accountant = new Schema({
   name: {
     type: String,
     trim: true
@@ -22,26 +24,22 @@ var Accountant = new Schema({
     }
   },
 
-  encrypted_password: {
+  encryptedPassword: {
     type: String,
     required: true
-  },
-
-  created_at: {
-    type: Date,
-    required: true,
-    default: Date.now
   }
+}, {
+  timestamps: true
 });
 
 Accountant.plugin(uniqueValidator);
 
-Accountant.statics.generateHash = function(password) {
+Accountant.statics.generateHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 
-Accountant.methods.verifyPassword = function(password) {
-  return bcrypt.compareSync(password, this.encrypted_password);
+Accountant.methods.verifyPassword = function (password) {
+  return bcrypt.compareSync(password, this.encryptedPassword);
 };
 
 module.exports = mongoose.model('Accountant', Accountant);

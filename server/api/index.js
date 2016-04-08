@@ -1,8 +1,10 @@
-var express = require('express');
-var accountantAuth = require('../middlewares/auth').accountant;
-var router = express.Router();
+'use strict';
 
-router.get('/', function(req, res, next) {
+const express = require('express');
+const accountantAuth = require('../middlewares/auth').accountant;
+const router = express.Router();
+
+router.get('/', function (req, res, next) {
   res.status(200).send('Welcome!');
 });
 

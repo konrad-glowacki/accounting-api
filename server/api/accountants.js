@@ -1,9 +1,11 @@
-var config = require('../config');
-var express = require('express');
-var router = express.Router();
-var jwt = require('jsonwebtoken');
-var accountantAuth = require('../middlewares/auth').accountant;
-var Accountant = require('../models/accountant');
+'use strict';
+
+const config = require('../config');
+const express = require('express');
+const router = express.Router();
+const jwt = require('jsonwebtoken');
+const accountantAuth = require('../middlewares/auth').accountant;
+const Accountant = require('../models/accountant');
 
 /**
  * @api {post} /accountants/signup Create an accountant
@@ -23,13 +25,13 @@ var Accountant = require('../models/accountant');
  * @apiSuccess (201) {String} email Accountant email
  */
 
-router.post('/signup', function(req, res, next) {
-  var accountant = new Accountant({
+router.post('/signup', function (req, res, next) {
+  let accountant = new Accountant({
     email: req.body.email,
-    encrypted_password: Accountant.generateHash(req.body.password)
+    encryptedPassword: Accountant.generateHash(req.body.password)
   });
 
-  accountant.save(function(err) {
+  accountant.save(function (err) {
     if (err) { return next(err); }
 
     res.status(201).json({
@@ -61,12 +63,12 @@ router.post('/signup', function(req, res, next) {
  * }
  */
 
-router.post('/authenticate', function(req, res, next) {
-  Accountant.where({ email: req.body.email }).findOne(function(err, accountant) {
+router.post('/authenticate', function (req, res, next) {
+  Accountant.where({ email: req.body.email }).findOne(function (err, accountant) {
     if (err) { return next(err); }
 
     if (accountant && accountant.verifyPassword(req.body.password)) {
-      var token = jwt.sign(accountant.id, config.secret_key);
+      let token = jwt.sign(accountant.id, config.secretKey);
       res.status(200).json({ token: token });
     } else {
       res.status(200).json({ message: 'User not found' });
@@ -84,22 +86,20 @@ router.post('/authenticate', function(req, res, next) {
  *
  * @apiSuccess {String} name Accountant Name
  * @apiSuccess {String} email Accountant Email
- * @apiSuccess {Date} created_at Accountant Created Date
  *
  * @apiSuccessExample Response example on success:
  * {
  *   "name": "Ruda Kulka",
- *   "email": "accountant@example.com",
- *   "created_at": "some date",
+ *   "email": "accountant@example.com"
  * }
  */
 
-router.get('/profile', accountantAuth, function(req, res, next) {
-  Accountant.findById(req.accountant_id, function(err, accountant) {
+router.get('/profile', accountantAuth, function (req, res, next) {
+  Accountant.findById(req.accountantId, function (err, accountant) {
     res.status(200).json({
       name: accountant.name,
       email: accountant.email,
-      created_at: accountant.created_at
+      createdAt: accountant.createdAt
     });
   });
 });

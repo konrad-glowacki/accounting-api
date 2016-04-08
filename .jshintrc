@@ -38,10 +38,8 @@
   "prototypejs": false,
   "rhino":       false,
   "wsh":         false,
-  "describe":    false,
-  "it":          false,
-  "before":      false,
-  "beforeEach":  false,
-  "after":       false,
-  "afterEach":   false
+
+  "globals": {
+    "require": false
+  }
 }

@@ -1,4 +1,6 @@
-var env = process.env.NODE_ENV || 'development';
+'use strict';
+
+const env = process.env.NODE_ENV || 'development';
 
 function internalError(err, req, res, next) {
   if (env === 'production') {
@@ -15,13 +17,13 @@ function internalError(err, req, res, next) {
 }
 
 function notFound(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 }
 
-var validationError = function (err, req, res, next) {
-  if (err.name == 'ValidationError') {
+let validationError = function (err, req, res, next) {
+  if (err.name === 'ValidationError') {
     res.status(422).json({ code: 'ValidationError', errors: err.errors });
   } else {
     next(err);
