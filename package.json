@@ -7,6 +7,10 @@
     "start": "nodemon ./bin/server",
     "test": "mocha --colors --reporter spec --recursive test"
   },
+  "engines": {
+    "node": "~5.10.1",
+    "npm": "~3.8.6"
+  },
   "dependencies": {
     "bcryptjs": "latest",
     "bluebird": "latest",
