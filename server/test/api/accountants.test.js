@@ -1,12 +1,14 @@
+'use strict';
+
 require('../test_helper');
 
-var app = require(__base + 'app');
+const app = require(__base + 'app');
 
-var accountants = require('../fixtures/accountants').accountants;
+const accountants = require('../fixtures/accountants').accountants;
 
-var request = require('supertest');
-var expect = require('expect.js');
-var jwt = require('jsonwebtoken');
+const request = require('supertest');
+const expect = require('expect.js');
+const jwt = require('jsonwebtoken');
 
 describe('Requests for accountant', function () {
 
@@ -60,7 +62,7 @@ describe('Requests for accountant', function () {
 
   describe('GET /api/accountants/profile', function () {
     it('Return accountant data', function (done) {
-      var token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret_key'));
+      const token = jwt.sign(accountants.taxminder._id.toString(), app.get('secret_key'));
 
       request(app)
         .get('/api/accountants/profile')
@@ -69,7 +71,7 @@ describe('Requests for accountant', function () {
           expect(res.status).to.equal(200);
           expect(res.body.name).to.equal(accountants.taxminder.name);
           expect(res.body.email).to.equal(accountants.taxminder.email);
-          expect(res.body.created_at).not.to.empty();
+          expect(res.body.createdAt).not.to.empty();
           expect(res.body.password).to.be(undefined);
           done();
         });

@@ -1,4 +1,6 @@
-var id = require('pow-mongodb-fixtures').createObjectId;
+'use strict';
+
+const id = require('pow-mongodb-fixtures').createObjectId;
 
 exports.accountants = {
   taxminder: {

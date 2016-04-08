@@ -40,6 +40,8 @@
   "wsh":         false,
 
   "globals": {
-    "require": false
+    "require": false,
+    "process": false,
+    "__base": false
   }
 }

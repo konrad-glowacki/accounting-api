@@ -1,3 +1,5 @@
+'use strict';
+
 process.env.NODE_ENV = 'test';
 
 if (process.env.NODE_ENV !== 'test') {
@@ -5,5 +7,5 @@ if (process.env.NODE_ENV !== 'test') {
   process.exit(1);
 }
 
-var config = require('../config');
-var utils = require('./utils');
+const config = require('../config');
+const utils = require('./utils');

@@ -6,8 +6,6 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport(config.mailerUrl);
 const mailer = {};
 
-const Promise = require('bluebird');
-
 const templatePath = function (name) {
   return __base + '/templates/mailers/' + name + '.jade';
 };
