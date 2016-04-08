@@ -1,13 +1,13 @@
 'use strict';
 
-const jade = require('jade');
+const pug = require('pug');
 const config = require('../config');
 const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport(config.mailerUrl);
 const mailer = {};
 
 const templatePath = function (name) {
-  return __base + '/templates/mailers/' + name + '.jade';
+  return __base + '/templates/mailers/' + name + '.pug';
 };
 
 mailer.accountantInvitation = function (accountant, customer, callback) {
@@ -15,7 +15,7 @@ mailer.accountantInvitation = function (accountant, customer, callback) {
     from: accountant.name + ' <' + accountant.email + '>',
     to: customer.email,
     subject: 'Activate your account in accounting app',
-    html: jade.renderFile(templatePath('accountant_invitation'), {
+    html: pug.renderFile(templatePath('accountant_invitation'), {
       customer: customer, accountant: accountant
     })
   };
