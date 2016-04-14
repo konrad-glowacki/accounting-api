@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "bcryptjs": "latest",
-    "bluebird": "latest",
     "body-parser": "latest",
     "cookie-parser": "latest",
     "debug": "latest",
@@ -22,6 +21,7 @@
     "express": "latest",
     "grunt": "latest",
     "grunt-apidoc": "latest",
+    "grunt-bower-install-simple": "^1.2.1",
     "grunt-cli": "latest",
     "grunt-sass": "^1.1.0",
     "jsonwebtoken": "latest",
