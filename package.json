@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "grunt",
+    "postinstall": "grunt setup",
     "start": "nodemon ./bin/web",
     "test": "mocha --colors --reporter spec --recursive test"
   },
@@ -22,6 +22,7 @@
     "express": "latest",
     "grunt": "latest",
     "grunt-apidoc": "latest",
+    "grunt-bower-task": "^0.4.0",
     "grunt-cli": "latest",
     "jsonwebtoken": "latest",
     "kerberos": "latest",
