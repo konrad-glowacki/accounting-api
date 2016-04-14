@@ -2,7 +2,8 @@
 
 module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-apidoc');
-  grunt.loadNpmTasks('grunt-bower-task');
+  grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-bower-install-simple');
 
   grunt.initConfig({
     apidoc: {
@@ -12,11 +13,24 @@ module.exports = function (grunt) {
       }
     },
 
-    bower: {
-      install: {
+    'bower-install-simple': {
+      options: {
+        color: true,
+        cwd: 'client',
+        directory: 'components'
+      },
+
+      prod: {
         options: {
-          targetDir: './client/bower_components',
-          cleanBowerDir: true
+          production: true
+        }
+      },
+    },
+
+    sass: {
+      dist: {
+        files: {
+          'client/public/css/application.css': 'client/assets/application.scss'
         }
       }
     }
@@ -25,7 +39,8 @@ module.exports = function (grunt) {
   grunt.registerTask('setup', 'Setup task', function () {
     if (process.env.NODE_ENV !== 'test') {
       grunt.task.run('apidoc');
-      grunt.task.run('bower:install');
+      grunt.task.run('bower-install-simple');
+      grunt.task.run('sass');
     }
   });
 };

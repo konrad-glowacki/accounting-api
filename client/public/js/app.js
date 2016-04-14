@@ -1,6 +1,6 @@
 'use strict';
 
-const app = global.angular.module('mkApp', ['ngRoute']);
+const app = angular.module('mkApp', ['ngRoute']);
 
 app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider

@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(require('./server/api'));
 app.use('/apidoc', express.static(path.join(__dirname, 'server/apidoc')));
-app.use('/components', express.static(path.join(__dirname, 'client/bower_components')));
+app.use('/components', express.static(path.join(__dirname, 'client/components')));
 app.use('/', express.static(path.join(__dirname, 'client/public')));
 
 app.get('/', function (req, res) {
