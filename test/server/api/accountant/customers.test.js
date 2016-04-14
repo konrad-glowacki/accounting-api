@@ -8,8 +8,8 @@ const expect = require('expect.js');
 const jwt = require('jsonwebtoken');
 
 const app = require(__base + 'app');
-const mailer = require(__base + '/lib/mailer');
-const Customer = require(__base + 'models/customer');
+const mailer = require(__base + '/server/lib/mailer');
+const Customer = require(__base + '/server/models/customer');
 
 const accountants = require('../../fixtures/accountants').accountants;
 const customers = require('../../fixtures/customers').customers;

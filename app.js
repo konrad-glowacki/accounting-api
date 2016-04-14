@@ -3,7 +3,7 @@
 const config = require('./config');
 const express = require('express');
 const path = require('path');
-const initializers = require('./initializers');
+const initializers = require('./server/initializers');
 const app = express();
 
 app.set('secretKey', config.secretKey);
@@ -17,11 +17,17 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('./server/api'));
+app.use('/apidoc', express.static(path.join(__dirname, 'server/apidoc')));
+app.use('/components', express.static(path.join(__dirname, 'client/bower_components')));
+app.use('/', express.static(path.join(__dirname, 'client/public')));
 
-app.use(require('./api'));
+app.get('/', function (req, res) {
+  res.redirect('/index.html');
+});
 
-const errorHandlers = require('./middlewares/errors');
+const errorHandlers = require('./server/middlewares/errors');
+
 app.use(errorHandlers.validationError);
 app.use(errorHandlers.notFound);
 app.use(errorHandlers.internalError);

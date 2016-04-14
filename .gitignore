@@ -1,5 +1,6 @@
 /node_modules
-/server/public/apidoc/
+/client/bower_components
+/server/apidoc/
 
 /npm-debug.log
 /.env

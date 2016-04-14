@@ -2,9 +2,9 @@
 
 const express = require('express');
 const router = express.Router();
-const mailer = require(__base + '/lib/mailer');
-const Customer = require(__base + '/models/customer');
-const Accountant = require(__base + '/models/accountant');
+const mailer = require('../../lib/mailer');
+const Customer = require('../../models/customer');
+const Accountant = require('../../models/accountant');
 
 /**
  * @api {post} /accountant/customers Create a customer

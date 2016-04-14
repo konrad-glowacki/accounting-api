@@ -1,7 +1,7 @@
 'use strict';
 
 const pug = require('pug');
-const config = require('../config');
+const config = require('../../config');
 const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport(config.mailerUrl);
 const mailer = {};
